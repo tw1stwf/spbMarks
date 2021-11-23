@@ -46,6 +46,7 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
         });
 
     }
+    //
 
     private void filter(String text) {
         ArrayList<Sight> filteredList = new ArrayList<>();
