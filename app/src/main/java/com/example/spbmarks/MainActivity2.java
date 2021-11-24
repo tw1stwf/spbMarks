@@ -3,12 +3,15 @@ package com.example.spbmarks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -16,8 +19,11 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     private ArrayList<Sight> mExampleList;
 
     private RecyclerView mRecyclerView;
+    private ImageButton imageButton;
     private SightAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private boolean isStared = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,5 +90,22 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
         Intent intent = new Intent(this, MainActivity4.class);
         intent.putExtra("image", mExampleList.get(position).getImageResource());
         startActivity(intent);
+    }
+
+    public void isStared (View view)
+    {
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
+
+        if(isStared == false)
+        {
+            imageButton.setColorFilter(Color.argb(255, 205, 201, 112));
+            isStared = true;
+        }
+
+        else
+        {
+            imageButton.setColorFilter(Color.argb(255, 151, 151, 151));
+            isStared = false;
+        }
     }
 }
