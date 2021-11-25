@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnSightListener {
     private ArrayList<Sight> mExampleList;
+    private ArrayList<Integer> idList = new ArrayList<Integer>();
 
     private RecyclerView mRecyclerView;
     private SightAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    private boolean isStared = false;
+    private boolean isFiltred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +53,32 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 filter(s.toString());
+                if(editText.length() == 0)
+                {
+                    isFiltred = false;
+                }
             }
         });
 
     }
-    //
 
     private void filter(String text) {
         ArrayList<Sight> filteredList = new ArrayList<>();
+        idList.clear();
 
         for (Sight item : mExampleList) {
             if (item.getText1().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
+                idList.add(item.getId());
             }
         }
+        
         mAdapter.filterList(filteredList);
+        isFiltred = true;
+
     }
 
     private void createExampleList() {
@@ -88,12 +97,12 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
         }
 
         mExampleList = new ArrayList<>();
-        mExampleList.add(new Sight(R.drawable.kazan, "Казанский собор", "      Невский проспект. \nАдрес: Казанская пл., 2", stared[1]));
-        mExampleList.add(new Sight(R.drawable.isac, "Исакиевский собор", "      Адмиралтейская. \nАдрес: Исаакиевская пл., 4", stared[2]));
-        mExampleList.add(new Sight(R.drawable.hermit, "Эрмитаж", "      Адмиралтейская. \nАдрес: Дворцовая пл., 2", stared[3]));
-        mExampleList.add(new Sight(R.drawable.vsadnik, "Медный всадник", "      Адмиралтейская. \nАдрес: Сенатская пл", stared[4]));
-        mExampleList.add(new Sight(R.drawable.spas, "Спас на крови", "      Невский проспект. \nАдрес: наб. канала Грибоедова, 2Б", stared[5]));
-        mExampleList.add(new Sight(R.drawable.zamok, "Михайловский замок", "      Гостинный двор. \nАдрес: Садовая ул., 2", stared[6]));
+        mExampleList.add(new Sight(1, R.drawable.kazan, "Казанский собор", "      Невский проспект. \nАдрес: Казанская пл., 2", stared[1]));
+        mExampleList.add(new Sight(2, R.drawable.isac, "Исакиевский собор", "      Адмиралтейская. \nАдрес: Исаакиевская пл., 4", stared[2]));
+        mExampleList.add(new Sight(3, R.drawable.hermit, "Эрмитаж", "      Адмиралтейская. \nАдрес: Дворцовая пл., 2", stared[3]));
+        mExampleList.add(new Sight(4, R.drawable.vsadnik, "Медный всадник", "      Адмиралтейская. \nАдрес: Сенатская пл", stared[4]));
+        mExampleList.add(new Sight(5, R.drawable.spas, "Спас на крови", "      Невский проспект. \nАдрес: наб. канала Грибоедова, 2Б", stared[5]));
+        mExampleList.add(new Sight(6, R.drawable.zamok, "Михайловский замок", "      Гостинный двор. \nАдрес: Садовая ул., 2", stared[6]));
     }
 
     private void buildRecyclerView() {
@@ -109,8 +118,19 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     @Override
     public void onSightClick(int position) {
         Intent intent = new Intent(this, MainActivity4.class);
-        intent.putExtra("image", mExampleList.get(position).getImageResource());
-        intent.putExtra("position", position);
+
+        if(isFiltred == false)
+        {
+            intent.putExtra("image", mExampleList.get(position).getImageResource());
+            intent.putExtra("position", position);
+        }
+
+        if(isFiltred == true)
+        {
+            intent.putExtra("image", mExampleList.get(idList.get(position)-1).getImageResource());
+            intent.putExtra("position", idList.get(position)-1);
+        }
+
         startActivity(intent);
         finish();
     }
