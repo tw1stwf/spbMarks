@@ -11,9 +11,38 @@
         android:id="@+id/image"
         android:layout_width="320dp"
         android:layout_height="245dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+    <ImageButton
+        android:id="@+id/imageButtonStar"
+        android:layout_width="54dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="332dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:onClick="isStared"
+        android:scaleType="centerInside"
+        android:tint="#979797"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/star" />
+
+    <Button
+        android:id="@+id/buttonExit"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="back"
+        android:text="Назад"
+        android:textColor="#D4DBE4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

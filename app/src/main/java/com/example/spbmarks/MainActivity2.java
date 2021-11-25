@@ -3,15 +3,20 @@ package com.example.spbmarks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,7 +24,6 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     private ArrayList<Sight> mExampleList;
 
     private RecyclerView mRecyclerView;
-    private ImageButton imageButton;
     private SightAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -29,6 +33,9 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, age BOOLEAN, UNIQUE(id))");
 
         createExampleList();
         buildRecyclerView();
@@ -66,13 +73,27 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     }
 
     private void createExampleList() {
+
+        int listSize = 8;
+        boolean stared[] = new boolean[listSize];
+
+        for(int i = 0; i < listSize; i++) {
+            SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+            Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + i + " ;", null);
+
+            while (query.moveToNext()) {
+                boolean age = query.getInt(1) > 0;
+                stared[i] = age;
+            }
+        }
+
         mExampleList = new ArrayList<>();
-        mExampleList.add(new Sight(R.drawable.kazan, "Казанский собор", "      Невский проспект. \nАдрес: Казанская пл., 2"));
-        mExampleList.add(new Sight(R.drawable.isac, "Исакиевский собор", "      Адмиралтейская. \nАдрес: Исаакиевская пл., 4"));
-        mExampleList.add(new Sight(R.drawable.hermit, "Эрмитаж", "      Адмиралтейская. \nАдрес: Дворцовая пл., 2"));
-        mExampleList.add(new Sight(R.drawable.vsadnik, "Медный всадник", "      Адмиралтейская. \nАдрес: Сенатская пл"));
-        mExampleList.add(new Sight(R.drawable.spas, "Спас на крови", "      Невский проспект. \nАдрес: наб. канала Грибоедова, 2Б"));
-        mExampleList.add(new Sight(R.drawable.zamok, "Михайловский замок", "      Гостинный двор. \nАдрес: Садовая ул., 2"));
+        mExampleList.add(new Sight(R.drawable.kazan, "Казанский собор", "      Невский проспект. \nАдрес: Казанская пл., 2", stared[1]));
+        mExampleList.add(new Sight(R.drawable.isac, "Исакиевский собор", "      Адмиралтейская. \nАдрес: Исаакиевская пл., 4", stared[2]));
+        mExampleList.add(new Sight(R.drawable.hermit, "Эрмитаж", "      Адмиралтейская. \nАдрес: Дворцовая пл., 2", stared[3]));
+        mExampleList.add(new Sight(R.drawable.vsadnik, "Медный всадник", "      Адмиралтейская. \nАдрес: Сенатская пл", stared[4]));
+        mExampleList.add(new Sight(R.drawable.spas, "Спас на крови", "      Невский проспект. \nАдрес: наб. канала Грибоедова, 2Б", stared[5]));
+        mExampleList.add(new Sight(R.drawable.zamok, "Михайловский замок", "      Гостинный двор. \nАдрес: Садовая ул., 2", stared[6]));
     }
 
     private void buildRecyclerView() {
@@ -89,23 +110,8 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     public void onSightClick(int position) {
         Intent intent = new Intent(this, MainActivity4.class);
         intent.putExtra("image", mExampleList.get(position).getImageResource());
+        intent.putExtra("position", position);
         startActivity(intent);
-    }
-
-    public void isStared (View view)
-    {
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-
-        if(isStared == false)
-        {
-            imageButton.setColorFilter(Color.argb(255, 205, 201, 112));
-            isStared = true;
-        }
-
-        else
-        {
-            imageButton.setColorFilter(Color.argb(255, 151, 151, 151));
-            isStared = false;
-        }
+        finish();
     }
 }

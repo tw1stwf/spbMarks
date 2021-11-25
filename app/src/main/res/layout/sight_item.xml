@@ -52,16 +52,12 @@
             android:textColor="#FF979797"
             android:textSize="15sp" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="345dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:onClick="isStared"
-            android:scaleType="centerInside"
-            android:tint="#FF979797"
+        <ImageView
+            android:id="@+id/imageViewStar"
+            android:layout_width="22dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="115dp"
             app:srcCompat="@drawable/star" />
 
     </RelativeLayout>
