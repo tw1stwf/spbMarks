@@ -7,42 +7,90 @@
     android:background="#122133"
     tools:context=".MainActivity4">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="320dp"
-        android:layout_height="245dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <ImageButton
-        android:id="@+id/imageButtonStar"
-        android:layout_width="54dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="332dp"
-        android:layout_marginTop="4dp"
-        android:background="@android:color/transparent"
-        android:onClick="isStared"
-        android:scaleType="centerInside"
-        android:tint="#979797"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/star" />
-
     <Button
         android:id="@+id/buttonExit"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="754dp"
         android:onClick="back"
         android:text="Назад"
         android:textColor="#D4DBE4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="236dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="256dp"
+        android:fontFamily="@font/balsamiqbold"
+        android:textAlignment="center"
+        android:textColor="#979797"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="394dp"
+            android:layout_height="257dp"
+            android:layout_marginTop="-6dp"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/imageButtonStar"
+            android:layout_width="54dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="332dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:onClick="isStared"
+            android:scaleType="centerInside"
+            android:tint="#979797"
+            app:srcCompat="@drawable/star" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="364dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="356dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+        android:id="@+id/textViewDateOfBuild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="308dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewArchitect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="332dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

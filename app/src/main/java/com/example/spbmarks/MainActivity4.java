@@ -17,6 +17,11 @@ public class MainActivity4 extends AppCompatActivity {
 
     private ImageView imageViewReceipt;
     private ImageButton star;
+    private TextView sightName;
+    private TextView discription;
+    private TextView yearOfBuild;
+    private TextView architector;
+
     private int pos;
     private boolean age;
 
@@ -27,15 +32,29 @@ public class MainActivity4 extends AppCompatActivity {
 
         imageViewReceipt = (ImageView) findViewById(R.id.image);
         star = (ImageButton) findViewById(R.id.imageButtonStar);
+        sightName = (TextView) findViewById(R.id.textViewName);
+        discription = (TextView) findViewById(R.id.textViewDescription);
+        yearOfBuild = (TextView) findViewById(R.id.textViewDateOfBuild);
+        architector = (TextView) findViewById(R.id.textViewArchitect);
 
         Intent intent = getIntent();
         int image = getIntent().getIntExtra("image", 0);
         pos = getIntent().getIntExtra("position", 0) + 1;
+        String name = getIntent().getStringExtra("name");
+
+        String arch = getIntent().getStringExtra("arch");
+        String year = getIntent().getStringExtra("year");
+        int disc = getIntent().getIntExtra("disc", 0);
+
         imageViewReceipt.setImageResource(image);
+        sightName.setText(name);
+
+        yearOfBuild.setText("Год постройки: " + year);
+        architector.setText("Архитектор: " + arch);
+        discription.setText(disc);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("INSERT OR IGNORE INTO favorites VALUES ( " + pos + ", 0);");
-
         Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + pos + " ;", null);
 
         while(query.moveToNext()){

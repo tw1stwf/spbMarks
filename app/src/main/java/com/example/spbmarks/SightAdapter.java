@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewHolder> {
-    private ArrayList<Sight> mExampleList;
+    private ArrayList<Sight> mSightList;
     private OnSightListener mOnSightListener;
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -42,7 +42,7 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
     }
 
     public SightAdapter(ArrayList<Sight> exampleList, OnSightListener onSightListener) {
-        mExampleList = exampleList;
+        mSightList = exampleList;
         this.mOnSightListener = onSightListener;
     }
 
@@ -56,7 +56,7 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
 
     @Override
     public void onBindViewHolder(ExampleViewHolder holder, int position) {
-        Sight currentItem = mExampleList.get(position);
+        Sight currentItem = mSightList.get(position);
 
         holder.mImageView.setImageResource(currentItem.getImageResource());
         holder.mTextView1.setText(currentItem.getText1());
@@ -75,11 +75,11 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
 
     @Override
     public int getItemCount() {
-        return mExampleList.size();
+        return mSightList.size();
     }
 
     public void filterList(ArrayList<Sight> filteredList) {
-        mExampleList = filteredList;
+        mSightList = filteredList;
         notifyDataSetChanged();
     }
 
