@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDR8guEL8-Dl4TUyZcPkXuRDA4oorGlQZ0"></meta-data>
+
         <activity
             android:name=".MainActivity4"
             android:exported="false" />

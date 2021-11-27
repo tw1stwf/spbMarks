@@ -23,16 +23,18 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="156dp"
-            android:layout_height="match_parent"
-            android:padding="2dp" />
+            android:layout_width="160dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="13dp"
+            android:padding="2dp"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/textViewSightName"
-            android:layout_width="212dp"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:layout_marginTop="23dp"
             android:layout_toEndOf="@+id/imageView"
             android:text="Line 1"
@@ -45,7 +47,7 @@
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewSightName"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/imageView"
             android:text="Line 2"

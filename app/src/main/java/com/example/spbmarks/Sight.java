@@ -3,15 +3,17 @@ package com.example.spbmarks;
 public class Sight {
     private int mId;
     private int mImageResource;
+    private int mDisc;
     private boolean mStar;
+    private double mX;
+    private double mY;
     private String mSightName;
     private String mMetro;
     private String mLocation;
     private String mDateOfBuild;
-    private int mDisc;
     private String mArchitect;
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location ,boolean star, String dateOfBuild, int disc, String architect) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location ,boolean star, String dateOfBuild, int disc, String architect, double x, double y) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -21,6 +23,8 @@ public class Sight {
         mDisc = disc;
         mArchitect = architect;
         mLocation = location;
+        mX = x;
+        mY = y;
     }
 
     public int getId() { return mId; }
@@ -42,4 +46,8 @@ public class Sight {
     public String getArchitect() { return mArchitect; }
 
     public String getLocation() { return mLocation; }
+
+    public double getX() { return mX; }
+
+    public double getY() { return mY; }
 }

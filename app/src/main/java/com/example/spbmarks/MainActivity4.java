@@ -12,8 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity4 extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity4 extends AppCompatActivity implements OnMapReadyCallback {
 
     private ImageView imageViewReceipt;
     private ImageButton star;
@@ -23,17 +32,24 @@ public class MainActivity4 extends AppCompatActivity {
     private TextView architector;
     private TextView commentsView;
     private TextView adress;
-
     private EditText textName;
     private EditText textComment;
 
+    private GoogleMap mMap;
+    private LatLng sightMark;
+
     private int pos;
     private boolean isFav;
+    private double x,y;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         imageViewReceipt = (ImageView) findViewById(R.id.image);
         star = (ImageButton) findViewById(R.id.imageButtonStar);
@@ -46,22 +62,24 @@ public class MainActivity4 extends AppCompatActivity {
         textComment = (EditText) findViewById(R.id.editTextComment);
         adress = (TextView) findViewById(R.id.textViewAdress);
 
-        Intent intent = getIntent();
         int image = getIntent().getIntExtra("image", 0);
         pos = getIntent().getIntExtra("position", 0) + 1;
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
         String location = getIntent().getStringExtra("location");
 
         String arch = getIntent().getStringExtra("arch");
         String year = getIntent().getStringExtra("year");
         int disc = getIntent().getIntExtra("disc", 0);
 
+        x = getIntent().getDoubleExtra("x", 0);
+        y = getIntent().getDoubleExtra("y", 0);
+
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
 
         yearOfBuild.setText("Год постройки: " + year);
         architector.setText("Архитектор: " + arch);
-        adress.setText(location);
+        adress.setText(location + "\n");
         discription.setText(disc);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
@@ -83,12 +101,21 @@ public class MainActivity4 extends AppCompatActivity {
         while(query2.moveToNext()){
             String Name = query2.getString(1);
             String Comment = query2.getString(2);
-            commentsView.append("Имя: " + Name + "\n" + "Комментарий: " + Comment + "\n");
+            commentsView.append("\n" + "Имя: " + Name + "\n" + "Комментарий: " + Comment );
         }
 
         query.close();
         query2.close();
         db.close();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        sightMark = new LatLng(x, y);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sightMark, 14));
+        mMap.addMarker(new MarkerOptions().position(sightMark).title(name));
     }
 
     public void isStared (View view)
