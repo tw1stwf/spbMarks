@@ -7,36 +7,8 @@
     android:background="#122133"
     tools:context=".MainActivity4">
 
-    <Button
-        android:id="@+id/buttonExit"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-6dp"
-        android:layout_marginTop="754dp"
-        android:onClick="back"
-        android:text="Назад"
-        android:textColor="#D4DBE4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
-
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="236dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="256dp"
-        android:fontFamily="@font/balsamiqbold"
-        android:textAlignment="center"
-        android:textColor="#979797"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,38 +31,142 @@
             android:onClick="isStared"
             android:scaleType="centerInside"
             android:tint="#979797"
-            app:srcCompat="@drawable/star" />
+            app:srcCompat="@drawable/star"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/buttonBack"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="52dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="6dp"
+            android:onClick="back"
+            app:icon="@drawable/back"
+            app:iconTint="#d4dbe4"
+            app:strokeColor="#d4dbe4" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textViewDescription"
-        android:layout_width="364dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="356dp"
-        android:text="TextView"
+    <ScrollView
+        android:layout_width="391dp"
+        android:layout_height="554dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="251dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="wrap" />
+        app:layout_constraintTop_toTopOf="@+id/cardView">
 
-    <TextView
-        android:id="@+id/textViewDateOfBuild"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="308dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewArchitect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="332dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="136dp"
+                android:layout_marginTop="4dp"
+                android:onClick="addRev"
+                android:text="Добавить"
+                android:textAlignment="center"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextComment"
+                app:strokeColor="#d4dbe4" />
+
+            <EditText
+                android:id="@+id/editTextComment"
+                android:layout_width="354dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Комментарий"
+                android:inputType="textMultiLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="199dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="13dp"
+                android:ems="10"
+                android:hint="Имя"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRev" />
+
+            <TextView
+                android:id="@+id/textViewRev"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="2dp"
+                android:text="TextView"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAdress" />
+
+            <TextView
+                android:id="@+id/textViewArchitect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="76dp"
+                android:text="TextView"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="236dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/balsamiqbold"
+                android:textAlignment="center"
+                android:textColor="#d4dbe4"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="98dp"
+                android:text="TextView"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDateOfBuild"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="54dp"
+                android:text="TextView"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewAdress"
+                android:layout_width="354dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="3dp"
+                android:text="TextView"
+                android:textColor="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

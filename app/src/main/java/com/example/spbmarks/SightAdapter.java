@@ -18,8 +18,9 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mImageView;
-        public TextView mTextView1;
-        public TextView mTextView2;
+        public TextView mTextViewSightName;
+        public TextView mTextViewMetro;
+        public TextView mTextViewAdress;
         public ImageView mImageStar;
 
         OnSightListener onSightListener;
@@ -27,8 +28,9 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
         public ExampleViewHolder(View itemView, OnSightListener onSightListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
-            mTextView1 = itemView.findViewById(R.id.textView);
-            mTextView2 = itemView.findViewById(R.id.textView2);
+            mTextViewSightName = itemView.findViewById(R.id.textViewSightName);
+            mTextViewMetro = itemView.findViewById(R.id.textViewMetro);
+            mTextViewAdress = itemView.findViewById(R.id.textViewLocation);
             mImageStar = itemView.findViewById(R.id.imageViewStar);
             this.onSightListener = onSightListener;
 
@@ -59,8 +61,9 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
         Sight currentItem = mSightList.get(position);
 
         holder.mImageView.setImageResource(currentItem.getImageResource());
-        holder.mTextView1.setText(currentItem.getText1());
-        holder.mTextView2.setText(currentItem.getText2());
+        holder.mTextViewSightName.setText(currentItem.getSightName());
+        holder.mTextViewMetro.setText(currentItem.getMetro());
+        holder.mTextViewAdress.setText(currentItem.getLocation());
 
         if(currentItem.getStar() == false)
         {

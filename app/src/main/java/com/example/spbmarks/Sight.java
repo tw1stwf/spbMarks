@@ -4,21 +4,23 @@ public class Sight {
     private int mId;
     private int mImageResource;
     private boolean mStar;
-    private String mText1;
-    private String mText2;
+    private String mSightName;
+    private String mMetro;
+    private String mLocation;
     private String mDateOfBuild;
     private int mDisc;
     private String mArchitect;
 
-    public Sight(int id, int imageResource, String text1, String text2, boolean star, String dateOfBuild, int disc, String architect) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location ,boolean star, String dateOfBuild, int disc, String architect) {
         mId = id;
         mImageResource = imageResource;
-        mText1 = text1;
-        mText2 = text2;
+        mSightName = sightName;
+        mMetro = metro;
         mStar = star;
         mDateOfBuild = dateOfBuild;
         mDisc = disc;
         mArchitect = architect;
+        mLocation = location;
     }
 
     public int getId() { return mId; }
@@ -27,11 +29,9 @@ public class Sight {
         return mImageResource;
     }
 
-    public String getText1() {
-        return mText1;
-    }
+    public String getSightName() { return mSightName; }
 
-    public String getText2() { return mText2; }
+    public String getMetro() { return mMetro; }
 
     public boolean getStar() { return mStar; }
 
@@ -40,4 +40,6 @@ public class Sight {
     public int getDisc() { return mDisc; }
 
     public String getArchitect() { return mArchitect; }
+
+    public String getLocation() { return mLocation; }
 }

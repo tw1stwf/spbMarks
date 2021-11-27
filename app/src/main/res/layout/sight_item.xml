@@ -28,7 +28,7 @@
             android:padding="2dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewSightName"
             android:layout_width="212dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -41,11 +41,11 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="213dp"
-            android:layout_height="75dp"
-            android:layout_below="@+id/textView"
-            android:layout_marginStart="7dp"
+            android:id="@+id/textViewMetro"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewSightName"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/imageView"
             android:text="Line 2"
@@ -59,6 +59,15 @@
             android:layout_marginLeft="350dp"
             android:layout_marginTop="115dp"
             app:srcCompat="@drawable/star" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="165dp"
+            android:layout_marginTop="70dp"
+            android:text="TextView"
+            android:textColor="#FF979797" />
 
     </RelativeLayout>
 

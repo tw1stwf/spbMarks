@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,22 +9,41 @@
     android:orientation="vertical"
     tools:context=".MainActivity2">
 
-    <EditText
-        android:id="@+id/edittext"
-        android:layout_width="383dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:backgroundTint="#979797"
-        android:drawableLeft="@mipmap/src"
-        android:drawableTint="#979797"
-        android:textColor="#979797" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="760dp"
+        android:layout_height="764dp"
+        android:layout_marginTop="45dp"
         android:background="#122133"
         android:padding="4dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/edittext"
+        android:layout_width="327dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:backgroundTint="#979797"
+        android:drawableLeft="@mipmap/src"
+        android:drawableTint="#979797"
+        android:textColor="#979797"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:onClick="back"
+        app:icon="@drawable/back"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

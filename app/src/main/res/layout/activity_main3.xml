@@ -7,4 +7,59 @@
     android:background="#122133"
     tools:context=".MainActivity3">
 
+    <TextView
+        android:id="@+id/textViewSite2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="760dp"
+        android:fontFamily="sans-serif-light"
+        android:text="spb-marks.com"
+        android:textColor="#d4dbe4"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="349dp"
+        android:layout_height="264dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/aboutApp"
+        android:textAlignment="viewStart"
+        android:textColor="#d4dbe4"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="44dp"
+        android:text="spbMarks"
+        android:textAlignment="center"
+        android:textColor="#d4dbe4"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:onClick="back"
+        app:icon="@drawable/back"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
