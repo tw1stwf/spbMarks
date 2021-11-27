@@ -16,19 +16,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void exit (View v)
     {
-        MainActivity.this.finish();
+        finishAffinity();
         System.exit(0);
     }
 
     public void goToSights (View view)
     {
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, SightListActivity.class);
         startActivity(intent);
     }
 
     public void aboutUs (View view)
     {
-        Intent intent = new Intent(this, MainActivity3.class);
+        Intent intent = new Intent(this, AboutAppActivity.class);
         startActivity(intent);
     }
 

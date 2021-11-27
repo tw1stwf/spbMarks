@@ -7,16 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity3 extends AppCompatActivity {
-
-    private Button backButton;
+public class AboutAppActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
-
-        backButton = (Button) findViewById(R.id.buttonBack);
+        setContentView(R.layout.activity_aboutapp);
     }
 
     public void back(View view)

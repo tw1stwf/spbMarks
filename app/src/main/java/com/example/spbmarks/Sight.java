@@ -33,15 +33,15 @@ public class Sight {
         return mImageResource;
     }
 
+    public int getDisc() { return mDisc; }
+
+    public boolean getStar() { return mStar; }
+
     public String getSightName() { return mSightName; }
 
     public String getMetro() { return mMetro; }
 
-    public boolean getStar() { return mStar; }
-
     public String getDateOfBuild() { return mDateOfBuild; }
-
-    public int getDisc() { return mDisc; }
 
     public String getArchitect() { return mArchitect; }
 

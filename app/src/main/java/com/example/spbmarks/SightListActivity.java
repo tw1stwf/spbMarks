@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnSightListener {
+public class SightListActivity extends AppCompatActivity implements SightAdapter.OnSightListener {
     private ArrayList<Sight> mSightList;
     private ArrayList<Integer> idList = new ArrayList<Integer>();
 
@@ -28,7 +28,7 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_sightlist);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, UNIQUE(id))");
@@ -59,7 +59,6 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
                 }
             }
         });
-
     }
 
     private void filter(String text) {
@@ -75,11 +74,9 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
         
         mAdapter.filterList(filteredList);
         isFiltred = true;
-
     }
 
     private void createExampleList() {
-
         int listSize = 11;
         boolean stared[] = new boolean[listSize];
 
@@ -117,7 +114,7 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
 
     @Override
     public void onSightClick(int position) {
-        Intent intent = new Intent(this, MainActivity4.class);
+        Intent intent = new Intent(this, SightInDetailActivity.class);
 
         if(isFiltred == false)
         {
@@ -125,11 +122,9 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
             intent.putExtra("position", position);
             intent.putExtra("name", mSightList.get(position).getSightName());
             intent.putExtra("location", mSightList.get(position).getLocation());
-
             intent.putExtra("disc", mSightList.get(position).getDisc());
             intent.putExtra("arch", mSightList.get(position).getArchitect());
             intent.putExtra("year", mSightList.get(position).getDateOfBuild());
-
             intent.putExtra("x", mSightList.get(position).getX());
             intent.putExtra("y", mSightList.get(position).getY());
         }
@@ -140,11 +135,9 @@ public class MainActivity2 extends AppCompatActivity implements SightAdapter.OnS
             intent.putExtra("position", idList.get(position)-1);
             intent.putExtra("name", mSightList.get(idList.get(position)-1).getSightName());
             intent.putExtra("location", mSightList.get(idList.get(position)-1).getLocation());
-
             intent.putExtra("disc", mSightList.get(idList.get(position)-1).getDisc());
             intent.putExtra("arch", mSightList.get(idList.get(position)-1).getArchitect());
             intent.putExtra("year", mSightList.get(idList.get(position)-1).getDateOfBuild());
-
             intent.putExtra("x", mSightList.get(idList.get(position)-1).getX());
             intent.putExtra("y", mSightList.get(idList.get(position)-1).getY());
         }

@@ -15,13 +15,13 @@
             android:value="AIzaSyDR8guEL8-Dl4TUyZcPkXuRDA4oorGlQZ0"></meta-data>
 
         <activity
-            android:name=".MainActivity4"
+            android:name=".SightInDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".AboutAppActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".SightListActivity"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"

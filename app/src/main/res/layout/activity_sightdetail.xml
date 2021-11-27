@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#122133"
-    tools:context=".MainActivity4">
+    tools:context=".SightInDetailActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -33,8 +33,8 @@
             android:background="@android:color/transparent"
             android:onClick="isStared"
             android:scaleType="centerInside"
-            android:tint="#979797"
             app:srcCompat="@drawable/star"
+            app:tint="#979797"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </androidx.cardview.widget.CardView>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#122133"
-    tools:context=".MainActivity3">
+    tools:context=".AboutAppActivity">
 
     <TextView
         android:id="@+id/textViewSite2"
@@ -60,6 +60,7 @@
         app:iconTint="#d4dbe4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
+        app:strokeColor="#d4dbe4"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,11 +18,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity4 extends AppCompatActivity implements OnMapReadyCallback {
+public class SightInDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ImageView imageViewReceipt;
     private ImageButton star;
@@ -46,7 +44,7 @@ public class MainActivity4 extends AppCompatActivity implements OnMapReadyCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.activity_sightdetail);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -150,7 +148,7 @@ public class MainActivity4 extends AppCompatActivity implements OnMapReadyCallba
 
     public void back(View view)
     {
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, SightListActivity.class);
         startActivity(intent);
         finish();
     }
@@ -174,5 +172,4 @@ public class MainActivity4 extends AppCompatActivity implements OnMapReadyCallba
         db.close();
         query.close();
     }
-
 }
