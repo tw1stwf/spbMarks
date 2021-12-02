@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -124,6 +126,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
             db.execSQL("UPDATE favorites SET isFav = 1 WHERE id = " + pos + ";");
             db.close();
             star.setColorFilter(Color.argb(255, 205, 201, 112));
+            Toast toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         if(isFav == true)
@@ -132,6 +136,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
             db.execSQL("UPDATE favorites SET isFav = 0 WHERE id = " + pos + ";");
             db.close();
             star.setColorFilter(Color.argb(255, 151, 151, 151));
+            Toast toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
@@ -168,6 +174,9 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
             String Comment = query.getString(2);
             commentsView.append("Имя: " + Name + "\n" + "Комментарий: " + Comment + "\n");
         }
+
+        Toast toast = Toast.makeText(getApplicationContext(), "Комментарий добавлен", Toast.LENGTH_SHORT);
+        toast.show();
 
         db.close();
         query.close();

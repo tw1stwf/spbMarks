@@ -11,8 +11,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="764dp"
+        android:layout_width="393dp"
+        android:layout_height="708dp"
         android:layout_marginTop="45dp"
         android:background="#122133"
         android:padding="4dp"
@@ -45,5 +45,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="392dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="750dp"
+        android:background="#192d46"
+        android:padding="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/my_navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
