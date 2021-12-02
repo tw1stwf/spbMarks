@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_search"
-        android:title="Главная"
-        android:icon="@drawable/home"/>
-    <item android:id="@+id/action_settings"
-        android:title="Избранное"
-        android:icon="@drawable/favoriteicon"/>
+    <item
+        android:id="@+id/main_page"
+        android:icon="@drawable/home"
+        android:title="Главная" />
+    <item
+        android:id="@+id/favorite_page"
+        android:icon="@drawable/favoriteicon"
+        android:title="Избранное" />
 </menu>

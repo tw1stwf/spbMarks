@@ -1,5 +1,6 @@
 package com.example.spbmarks;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,24 +12,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class SightListActivity extends AppCompatActivity implements SightAdapter.OnSightListener {
+public class SightListActivity extends AppCompatActivity implements SightAdapter.OnSightListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private ArrayList<Sight> mSightList;
+    private ArrayList<Sight> favoriteList;
     private ArrayList<Integer> idList = new ArrayList<Integer>();
 
     private RecyclerView mRecyclerView;
     private SightAdapter mAdapter;
+    private EditText editText;
+    private BottomNavigationView bottomNav;
     private RecyclerView.LayoutManager mLayoutManager;
     private boolean isFiltred = false;
+    private boolean favoritePageSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sightlist);
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav.setOnNavigationItemSelectedListener(this);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, UNIQUE(id))");
@@ -37,7 +49,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         createExampleList();
         buildRecyclerView();
 
-        EditText editText = findViewById(R.id.edittext);
+        editText = findViewById(R.id.edittext);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -52,10 +64,16 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
             @Override
             public void afterTextChanged(Editable s)
             {
-                filter(s.toString());
-                if(editText.length() == 0)
+                if(favoritePageSelected == false) {
+                    filter(s.toString());
+                    if (editText.length() == 0) {
+                        isFiltred = false;
+                    }
+                }
+
+                if(favoritePageSelected == true)
                 {
-                    isFiltred = false;
+                    favoriteSearch(s.toString());
                 }
             }
         });
@@ -151,5 +169,58 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void favorite() {
+        favoriteList = new ArrayList<>();
+        idList.clear();
+
+        for (Sight item : mSightList) {
+            if (item.getStar() == true) {
+                favoriteList.add(item);
+                idList.add(item.getId());
+            }
+        }
+
+        mAdapter.filterList(favoriteList);
+        isFiltred = true;
+    }
+
+    private void favoriteSearch(String text) {
+        ArrayList<Sight> favoriteFiltredList = new ArrayList<>();
+        idList.clear();
+
+        for (Sight item : favoriteList) {
+            if (item.getSightName().toLowerCase().contains(text.toLowerCase())) {
+                favoriteFiltredList.add(item);
+                idList.add(item.getId());
+            }
+        }
+
+        mAdapter.filterList(favoriteFiltredList);
+        isFiltred = true;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+
+            case R.id.main_page:
+                favoritePageSelected = false;
+                createExampleList();
+                buildRecyclerView();
+                editText.setText("");
+                return true;
+
+            case R.id.favorite_page:
+                favoritePageSelected = true;
+                favorite();
+                editText.setText("");
+                return true;
+        }
+
+        return false;
     }
 }
