@@ -35,13 +35,17 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private EditText textName;
     private EditText textComment;
 
+    private ImageButton star1, star2, star3, star4, star5;
+
     private GoogleMap mMap;
     private LatLng sightMark;
 
     private int pos;
     private boolean isFav;
+    private boolean starPressed = false;
     private double x,y;
     private String name;
+    private int rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,12 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         textName = (EditText) findViewById(R.id.editTextName);
         textComment = (EditText) findViewById(R.id.editTextComment);
         adress = (TextView) findViewById(R.id.textViewAdress);
+
+        star1 = (ImageButton) findViewById(R.id.star1);
+        star2 = (ImageButton) findViewById(R.id.star2);
+        star3 = (ImageButton) findViewById(R.id.star3);
+        star4 = (ImageButton) findViewById(R.id.star4);
+        star5 = (ImageButton) findViewById(R.id.star5);
 
         int image = getIntent().getIntExtra("image", 0);
         pos = getIntent().getIntExtra("position", 0) + 1;
@@ -101,7 +111,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         while(query2.moveToNext()){
             String Name = query2.getString(1);
             String Comment = query2.getString(2);
-            commentsView.append("\n" + "Имя: " + Name + "\n" + "Комментарий: " + Comment );
+            String Rating = query2.getString(3);
+            commentsView.append("Оценка: " + Rating + "\n" + "Имя: " + Name + "\n" + "Комментарий: " + Comment + "\n");
         }
 
         query.close();
@@ -165,20 +176,99 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         String comment = textComment.getText().toString();
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        db.execSQL("INSERT OR IGNORE INTO reviews VALUES ( " + pos + ", '" + name +"', '" + comment +"');");
-
-        Cursor query = db.rawQuery("SELECT * FROM reviews WHERE sightId = " + pos + " ;", null);
-        commentsView.setText("");
-        while(query.moveToNext()){
-            String Name = query.getString(1);
-            String Comment = query.getString(2);
-            commentsView.append("Имя: " + Name + "\n" + "Комментарий: " + Comment + "\n");
+        if(starPressed = false)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Добавьте оценку", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Комментарий добавлен", Toast.LENGTH_SHORT);
-        toast.show();
+        if(starPressed = true)
+        {
+            db.execSQL("INSERT OR IGNORE INTO reviews VALUES ( " + pos + ", '" + name + "', '" + comment + "', '" + rating + "');");
 
-        db.close();
-        query.close();
+            Cursor query = db.rawQuery("SELECT * FROM reviews WHERE sightId = " + pos + " ;", null);
+            commentsView.setText("");
+            while (query.moveToNext()) {
+                String Name = query.getString(1);
+                String Comment = query.getString(2);
+                String Rating = query.getString(3);
+                commentsView.append("Оценка: " + Rating + "\n" + "Имя: " + Name + "\n" + "Комментарий: " + Comment + "\n");
+            }
+
+            Toast toast = Toast.makeText(getApplicationContext(), "Комментарий добавлен", Toast.LENGTH_SHORT);
+            toast.show();
+
+            db.close();
+            query.close();
+
+            star1.setColorFilter(Color.argb(255, 151, 151, 151));
+            star2.setColorFilter(Color.argb(255, 151, 151, 151));
+            star3.setColorFilter(Color.argb(255, 151, 151, 151));
+            star4.setColorFilter(Color.argb(255, 151, 151, 151));
+            star5.setColorFilter(Color.argb(255, 151, 151, 151));
+
+            textComment.setText("");
+            textName.setText("");
+        }
+    }
+
+    public void clickStar1(View view)
+    {
+        star1.setColorFilter(Color.argb(255, 205, 201, 112));
+        star2.setColorFilter(Color.argb(255, 151, 151, 151));
+        star3.setColorFilter(Color.argb(255, 151, 151, 151));
+        star4.setColorFilter(Color.argb(255, 151, 151, 151));
+        star5.setColorFilter(Color.argb(255, 151, 151, 151));
+
+        rating = 1;
+        starPressed = true;
+    }
+
+    public void clickStar2(View view)
+    {
+        star1.setColorFilter(Color.argb(255, 205, 201, 112));
+        star2.setColorFilter(Color.argb(255, 205, 201, 112));
+        star3.setColorFilter(Color.argb(255, 151, 151, 151));
+        star4.setColorFilter(Color.argb(255, 151, 151, 151));
+        star5.setColorFilter(Color.argb(255, 151, 151, 151));
+
+        rating = 2;
+        starPressed = true;
+    }
+
+    public void clickStar3(View view)
+    {
+        star1.setColorFilter(Color.argb(255, 205, 201, 112));
+        star2.setColorFilter(Color.argb(255, 205, 201, 112));
+        star3.setColorFilter(Color.argb(255, 205, 201, 112));
+        star4.setColorFilter(Color.argb(255, 151, 151, 151));
+        star5.setColorFilter(Color.argb(255, 151, 151, 151));
+
+        rating = 3;
+        starPressed = true;
+    }
+
+    public void clickStar4(View view)
+    {
+        star1.setColorFilter(Color.argb(255, 205, 201, 112));
+        star2.setColorFilter(Color.argb(255, 205, 201, 112));
+        star3.setColorFilter(Color.argb(255, 205, 201, 112));
+        star4.setColorFilter(Color.argb(255, 205, 201, 112));
+        star5.setColorFilter(Color.argb(255, 151, 151, 151));
+
+        rating = 4;
+        starPressed = true;
+    }
+
+    public void clickStar5(View view)
+    {
+        star1.setColorFilter(Color.argb(255, 205, 201, 112));
+        star2.setColorFilter(Color.argb(255, 205, 201, 112));
+        star3.setColorFilter(Color.argb(255, 205, 201, 112));
+        star4.setColorFilter(Color.argb(255, 205, 201, 112));
+        star5.setColorFilter(Color.argb(255, 205, 201, 112));
+
+        rating = 5;
+        starPressed = true;
     }
 }

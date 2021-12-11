@@ -44,7 +44,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, UNIQUE(id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS reviews (sightId INTEGER, name STRING, comment STRING)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS reviews (sightId INTEGER, name STRING, comment STRING, rating INTEGER)");
 
         createExampleList();
         buildRecyclerView();
