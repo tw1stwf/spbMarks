@@ -56,6 +56,7 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
         return evh;
     }
 
+
     @Override
     public void onBindViewHolder(ExampleViewHolder holder, int position) {
         Sight currentItem = mSightList.get(position);

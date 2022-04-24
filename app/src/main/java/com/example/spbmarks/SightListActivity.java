@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -34,6 +35,10 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private boolean isFiltred = false;
     private boolean favoritePageSelected = false;
 
+    private static final String TAG = "MyApp";
+
+    private int count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, UNIQUE(id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS reviews (sightId INTEGER, name STRING, comment STRING, rating INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sights (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription BLOB, architect TEXT, latitude REAL, longitude REAL, UNIQUE(id))");
 
         createExampleList();
         buildRecyclerView();
@@ -95,11 +100,12 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     }
 
     private void createExampleList() {
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+
         int listSize = 11;
         boolean stared[] = new boolean[listSize];
 
         for(int i = 0; i < listSize; i++) {
-            SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
             Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + i + " ;", null);
 
             while (query.moveToNext()) {
@@ -108,17 +114,32 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
             }
         }
 
+        Cursor query = db.rawQuery("SELECT COUNT(*) FROM sights;", null);
+        while (query.moveToNext()) {
+            count = query.getInt(0);
+        }
+
         mSightList = new ArrayList<>();
-        mSightList.add(new Sight(1, R.drawable.kazan, "Казанский собор", "Невский проспект.", "Адрес: Казанская пл., 2", stared[1], "1811 г.", R.string.kazanDisc, "Андрей Никифорович Воронихин", 59.934443, 30.324701));
-        mSightList.add(new Sight(2, R.drawable.isac, "Исакиевский собор", "Адмиралтейская.", "Адрес: Исаакиевская пл., 4", stared[2], "1858 г.", R.string.isacDisc, "Огюст Монферран", 59.93409, 30.30614));
-        mSightList.add(new Sight(3, R.drawable.hermit, "Эрмитаж", "Адмиралтейская. ", "Адрес: Дворцовая пл., 2", stared[3], "1764 г.", R.string.discHermit, "Бартоломео Растрелли", 59.93986, 30.3146));
-        mSightList.add(new Sight(4, R.drawable.vsadnik, "Медный всадник", "Адмиралтейская." , "Адрес: Сенатская пл.", stared[4], "1782 г.", R.string.vsadnicDisc, "Этьен Морис Фальконе", 59.93639, 30.30218));
-        mSightList.add(new Sight(5, R.drawable.spas, "Спас на крови", "Невский проспект.", "Адрес: наб. канала Грибоедова, 2Б", stared[5], "1907 г.", R.string.spasDisc,"Альфред Александрович Парланд", 59.94006, 30.32882));
-        mSightList.add(new Sight(6, R.drawable.zamok, "Михайловский замок", "Гостинный двор." , "Адрес: Садовая ул., 2", stared[6], "1800 г.", R.string.zamokDisc, "Винченцо Бренна", 59.93999, 30.33801));
-        mSightList.add(new Sight(7, R.drawable.rusmus, "Русский музей", "Невский проспект." , "Адрес: Инженерная ул., 4", stared[7], "1895 г.", R.string.rusDisc , "Карло Росси", 59.93869, 30.3323));
-        mSightList.add(new Sight(8, R.drawable.petrop, "Петропавловская крепость", "Горьковская." , "Адрес: Заячий остров", stared[8], "1740 г.", R.string.petropDisc, "Доменико Трезини", 59.95018, 30.31647));
-        mSightList.add(new Sight(9, R.drawable.kunts, "Кунсткамера", "Адмиралтейская." , "Адрес: Университетская наб., 3", stared[9], "1714 г.",R.string.kuntsDisc , "Георг Иоганн Маттарнови", 59.94154, 30.30454));
-        mSightList.add(new Sight(10,R.drawable.marink , "Мариинский театр", "Садовая." , "Адрес: Театральная пл., 1", stared[10], "1783 г.", R.string.marinksDisc , "Альберт Катеринович Кавос", 59.92577, 30.29645 ));
+
+        for(int i = 0; i <= count; i++)
+        {
+            Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE id = " + i + " ;", null);
+
+            while (query2.moveToNext()) {
+                mSightList.add(new Sight(i,  query2.getInt(1) , query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getInt(7) , query2.getString(8), query2.getDouble(9), query2.getDouble(10)));
+            }
+        }
+
+        //mSightList.add(new Sight(1, R.drawable.kazan, "Казанский собор", "Невский проспект.", "Адрес: Казанская пл., 2", stared[1], "1811 г.", R.string.kazanDisc, "Андрей Никифорович Воронихин", 59.934443, 30.324701));
+        //mSightList.add(new Sight(2, R.drawable.isac, "Исакиевский собор", "Адмиралтейская.", "Адрес: Исаакиевская пл., 4", stared[2], "1858 г.", R.string.isacDisc, "Огюст Монферран", 59.93409, 30.30614));
+        //mSightList.add(new Sight(3, R.drawable.hermit, "Эрмитаж", "Адмиралтейская. ", "Адрес: Дворцовая пл., 2", stared[3], "1764 г.", R.string.discHermit, "Бартоломео Растрелли", 59.93986, 30.3146));
+        //mSightList.add(new Sight(4, R.drawable.vsadnik, "Медный всадник", "Адмиралтейская." , "Адрес: Сенатская пл.", stared[4], "1782 г.", R.string.vsadnicDisc, "Этьен Морис Фальконе", 59.93639, 30.30218));
+        //mSightList.add(new Sight(5, R.drawable.spas, "Спас на крови", "Невский проспект.", "Адрес: наб. канала Грибоедова, 2Б", stared[5], "1907 г.", R.string.spasDisc,"Альфред Александрович Парланд", 59.94006, 30.32882));
+        //mSightList.add(new Sight(6, R.drawable.zamok, "Михайловский замок", "Гостинный двор." , "Адрес: Садовая ул., 2", stared[6], "1800 г.", R.string.zamokDisc, "Винченцо Бренна", 59.93999, 30.33801));
+        //mSightList.add(new Sight(7, R.drawable.rusmus, "Русский музей", "Невский проспект." , "Адрес: Инженерная ул., 4", stared[7], "1895 г.", R.string.rusDisc , "Карло Росси", 59.93869, 30.3323));
+        //mSightList.add(new Sight(8, R.drawable.petrop, "Петропавловская крепость", "Горьковская." , "Адрес: Заячий остров", stared[8], "1740 г.", R.string.petropDisc, "Доменико Трезини", 59.95018, 30.31647));
+        //mSightList.add(new Sight(9, R.drawable.kunts, "Кунсткамера", "Адмиралтейская." , "Адрес: Университетская наб., 3", stared[9], "1714 г.",R.string.kuntsDisc , "Георг Иоганн Маттарнови", 59.94154, 30.30454));
+        //mSightList.add(new Sight(10,R.drawable.marink , "Мариинский театр", "Садовая." , "Адрес: Театральная пл., 1", stared[10], "1783 г.", R.string.marinksDisc , "Альберт Катеринович Кавос", 59.92577, 30.29645 ));
     }
 
     private void buildRecyclerView() {

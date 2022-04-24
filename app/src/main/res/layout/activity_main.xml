@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
         android:onClick="aboutUs"
-        android:text="О приложении"
+        android:text="@string/aboutAppName"
         android:textColor="#D4DBE4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="288dp"
         android:onClick="goToSights"
-        android:text="Достопримечательности"
+        android:text="@string/sights"
         android:textColor="#D4DBE4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="392dp"
         android:onClick="exit"
-        android:text="Выйти"
+        android:text="@string/exit"
         android:textColor="#D4DBE4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,5 +75,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mainlogo" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="524dp"
+        android:onClick="insert"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

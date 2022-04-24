@@ -1,5 +1,7 @@
 package com.example.spbmarks;
 
+import android.graphics.drawable.Drawable;
+
 public class Sight {
     private int mId;
     private int mImageResource;
@@ -13,7 +15,7 @@ public class Sight {
     private String mDateOfBuild;
     private String mArchitect;
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location ,boolean star, String dateOfBuild, int disc, String architect, double x, double y) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, int disc, String architect, double x, double y) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -29,9 +31,7 @@ public class Sight {
 
     public int getId() { return mId; }
 
-    public int getImageResource() {
-        return mImageResource;
-    }
+    public int getImageResource() { return mImageResource; }
 
     public int getDisc() { return mDisc; }
 
