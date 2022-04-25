@@ -1,6 +1,8 @@
 package com.example.spbmarks;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,18 +13,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
+import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
-
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class SightInDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class SightInDetailActivity extends AppCompatActivity implements OnMapReadyCallback, OnStreetViewPanoramaReadyCallback {
 
     private ImageView imageViewReceipt;
     private ImageButton star;
@@ -31,14 +36,17 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private TextView yearOfBuild;
     private TextView architector;
     private TextView adress;
+    private View streetpanorama;
+    private ScrollView scrollView;
+    private CardView cardView;
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     private LatLng sightMark;
 
     private int pos;
     private boolean isFav;
     private boolean starPressed = false;
-    private double x,y;
+    private double latitude, longitude;
     private String name;
 
     @Override
@@ -53,6 +61,23 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         yearOfBuild = (TextView) findViewById(R.id.textViewDateOfBuild);
         architector = (TextView) findViewById(R.id.textViewArchitect);
         adress = (TextView) findViewById(R.id.textViewAdress);
+        streetpanorama = (View) findViewById(R.id.streetviewpanorama2);
+        scrollView = (ScrollView) findViewById(R.id.scrollview);
+        cardView = (CardView) findViewById(R.id.cardView);
+
+        streetpanorama.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
+
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
+                (SupportStreetViewPanoramaFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.streetviewpanorama2);
+        streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
 
         int image = getIntent().getIntExtra("image", 0);
         pos = getIntent().getIntExtra("position", 0) + 1;
@@ -63,8 +88,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         String year = getIntent().getStringExtra("year");
         int disc = getIntent().getIntExtra("disc", 0);
 
-        x = getIntent().getDoubleExtra("x", 0);
-        y = getIntent().getDoubleExtra("y", 0);
+        latitude = getIntent().getDoubleExtra("latitude", 0);
+        longitude = getIntent().getDoubleExtra("longitude", 0);
 
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
@@ -95,11 +120,11 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        sightMark = new LatLng(x, y);
+        map = googleMap;
+        sightMark = new LatLng(latitude, longitude);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sightMark, 14));
-        mMap.addMarker(new MarkerOptions().position(sightMark).title(name));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sightMark, 14));
+        map.addMarker(new MarkerOptions().position(sightMark).title(name));
     }
 
     public void isStared (View view)
@@ -142,4 +167,23 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         finish();
     }
 
+    public void panoramaView (View view)
+    {
+        streetpanorama.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.GONE);
+        cardView.setVisibility(View.GONE);
+    }
+
+    public void backPanorama(View view)
+    {
+        streetpanorama.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
+        LatLng position = new LatLng(latitude, longitude);
+        streetViewPanorama.setPosition(position);
+    }
 }

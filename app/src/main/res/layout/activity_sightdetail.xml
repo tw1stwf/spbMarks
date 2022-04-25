@@ -8,6 +8,30 @@
     android:background="#122133"
     tools:context=".SightInDetailActivity">
 
+    <fragment
+        android:id="@+id/streetviewpanorama2"
+        android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="769dp"
+        android:layout_marginTop="36dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBackFromPanorama"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="top"
+        android:onClick="backPanorama"
+        app:icon="@drawable/back"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -40,6 +64,7 @@
     </androidx.cardview.widget.CardView>
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="405dp"
         android:layout_height="475dp"
         android:layout_marginStart="1dp"
@@ -50,21 +75,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/buttonBack"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="52dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="436dp"
-                android:onClick="back"
-                app:icon="@drawable/back"
-                app:iconTint="#d4dbe4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="#d4dbe4"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/textViewArchitect"
@@ -122,6 +132,46 @@
                 android:textColor="#d4dbe4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="348dp"
+                android:layout_height="348dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAdress" />
+
+            <Button
+                android:id="@+id/buttonBack"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="52dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="324dp"
+                android:layout_marginTop="4dp"
+                android:gravity="top"
+                android:onClick="back"
+                app:icon="@drawable/back"
+                app:iconTint="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map"
+                app:strokeColor="#d4dbe4" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:onClick="panoramaView"
+                android:text="Панорама"
+                android:textColor="#d4dbe4"
+                app:iconTint="#d4dbe4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map"
+                app:strokeColor="#d4dbe4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
