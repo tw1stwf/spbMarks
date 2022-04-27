@@ -95,6 +95,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/balsamiqbold"
+                android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="#d4dbe4"
                 android:textSize="22sp"
@@ -146,13 +147,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewAdress" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonPanorama"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:onClick="panoramaView"
-                android:text="Панорама"
+                android:text="@string/panorama"
                 android:textColor="#d4dbe4"
                 app:iconTint="#d4dbe4"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,13 +161,13 @@
                 app:strokeColor="#d4dbe4" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonWebSite"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="223dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="152dp"
                 android:onClick="url"
-                android:text="Официальный сайт"
+                android:text="@string/website"
                 android:textAlignment="center"
                 android:textColor="#d4dbe4"
                 app:layout_constraintStart_toStartOf="parent"

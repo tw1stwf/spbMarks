@@ -8,7 +8,7 @@
     tools:context=".SightOnMapActivity">
 
     <Button
-        android:id="@+id/buttonBack2"
+        android:id="@+id/buttonBackFromMap"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="52dp"
         android:layout_height="37dp"

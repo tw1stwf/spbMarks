@@ -67,6 +67,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />
 
+    <Button
+        android:id="@+id/buttonOnMap"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:onClick="onMap"
+        android:text="@string/onMap"
+        android:textColor="#d4dbe4"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="294dp"
@@ -77,18 +92,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mainlogo" />
 
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    <ImageButton
+        android:id="@+id/imageButtonRu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:onClick="onMap"
-        android:text="На карте"
-        android:textColor="#d4dbe4"
-        app:iconTint="#d4dbe4"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:onClick="languageRu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
+        app:srcCompat="@drawable/russia" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:onClick="languageEn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/unitedkingdom" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

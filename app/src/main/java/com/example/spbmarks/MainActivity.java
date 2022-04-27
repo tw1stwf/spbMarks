@@ -3,21 +3,39 @@ package com.example.spbmarks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+
+    ImageButton buttonRu, buttonEn;
+
+    public boolean isLanguageEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        buttonEn = findViewById(R.id.imageButtonRu);
+        buttonRu = findViewById(R.id.imageButtonEn);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, UNIQUE(id))");
@@ -58,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setAppLocale(String localeCode)
+    {
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        } else {
+            conf.locale = new Locale(localeCode.toLowerCase());
+
+        }
+        res.updateConfiguration(conf, dm);
+    }
+
     public void exit (View v)
     {
         finishAffinity();
@@ -67,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToSights (View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
+        intent.putExtra("language", isLanguageEn);
         startActivity(intent);
     }
 
@@ -82,4 +115,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void languageEn(View view)
+    {
+        setAppLocale("en");
+        finish();
+        startActivity(getIntent());
+        isLanguageEn = true;
+    }
+
+    public void languageRu(View view)
+    {
+        setAppLocale("ru");
+        finish();
+        startActivity(getIntent());
+        isLanguageEn = false;
+    }
 }

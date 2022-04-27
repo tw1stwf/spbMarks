@@ -2,9 +2,9 @@
     <item
         android:id="@+id/main_page"
         android:icon="@drawable/home"
-        android:title="Главная" />
+        android:title="@string/mainPage" />
     <item
         android:id="@+id/favorite_page"
         android:icon="@drawable/favoriteicon"
-        android:title="Избранное" />
+        android:title="@string/favPage" />
 </menu>

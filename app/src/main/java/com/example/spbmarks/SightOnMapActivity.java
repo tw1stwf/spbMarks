@@ -20,7 +20,6 @@ public class SightOnMapActivity extends AppCompatActivity implements OnMapReadyC
 
     private GoogleMap map;
     private LatLng sightMark, cityMark;
-    private static final String TAG = "MyApp";
 
     private double latitude, longitude;
     private String name;

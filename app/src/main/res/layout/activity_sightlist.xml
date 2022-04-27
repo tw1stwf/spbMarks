@@ -28,6 +28,7 @@
         android:backgroundTint="#979797"
         android:drawableLeft="@mipmap/src"
         android:drawableTint="#979797"
+        android:hint="@string/search"
         android:textColor="#979797"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

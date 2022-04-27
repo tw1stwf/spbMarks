@@ -2,8 +2,8 @@
 
     <string name="app_name">spbMarks</string>
 
-    <string name="aboutApp">Приложение spbMarks подробно расскажет вам о лучших достопримечательностях города Санкт-Петербург.
-        Здесь вы сможете узнать краткую историческую информацию, инфорамцию о местоположении достопримечательности.</string>
+    <string name="aboutApp">The spbMarks application will tell you in detail about the best sights of the city of St. Petersburg.
+         Here you can find brief historical information, information about the location of the attraction.</string>
 
     <string name="kazanDisc">Один из крупнейших храмов Санкт-Петербурга.
         Построен для хранения чтимого списка чудотворной иконы Божией Матери Казанской.
@@ -92,22 +92,22 @@
         Театральный комплекс включает в себя собственно основное здание на Театральной площади, концертный зал (с 2006 года и новый южный корпус с 2021 года),
         вторую сцену на Крюковом канале (с 2013 года) и филиалы во Владивостоке (с 2016 года) и Владикавказе (с 2017).</string>
 
-    <string name="sights">Достопримечательности</string>
+    <string name="sights">Sights</string>
 
-    <string name="aboutAppName">О приложении</string>
+    <string name="aboutAppName">About app</string>
 
-    <string name="onMap">На карте</string>
+    <string name="onMap">On map</string>
 
-    <string name="exit">Выйти</string>
+    <string name="exit">Exit</string>
 
-    <string name="panorama">Панорама</string>
+    <string name="panorama">Panorama</string>
 
-    <string name="website">Официальный сайт</string>
+    <string name="website">Official site</string>
 
-    <string name="search">Поиск</string>
+    <string name="search">Search</string>
 
-    <string name="mainPage">Главная</string>
+    <string name="mainPage">Main</string>
 
-    <string name="favPage">Избранное</string>
+    <string name="favPage">Favorites</string>
 
 </resources>

@@ -38,6 +38,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private static final String TAG = "MyApp";
 
     private int count;
+    private boolean language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        language = getIntent().getBooleanExtra("language", false);
 
         createExampleList();
         buildRecyclerView();
@@ -100,7 +102,19 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private void createExampleList() {
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-        int listSize = 11;
+        if(language != true) {
+            Cursor query3 = db.rawQuery("SELECT COUNT(*) FROM sights;", null);
+            while (query3.moveToNext()) {
+                count = query3.getInt(0);
+            }
+        }
+
+        if(language == true)
+        {
+
+        }
+
+        int listSize = count+1;
         boolean stared[] = new boolean[listSize];
 
         for(int i = 0; i < listSize; i++) {
@@ -110,11 +124,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
                 boolean isFav = query.getInt(1) > 0;
                 stared[i] = isFav;
             }
-        }
-
-        Cursor query = db.rawQuery("SELECT COUNT(*) FROM sights;", null);
-        while (query.moveToNext()) {
-            count = query.getInt(0);
         }
 
         mSightList = new ArrayList<>();
