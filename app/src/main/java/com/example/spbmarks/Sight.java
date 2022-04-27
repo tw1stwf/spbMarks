@@ -14,8 +14,9 @@ public class Sight {
     private String mLocation;
     private String mDateOfBuild;
     private String mArchitect;
+    private String mWebsite;
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, int disc, String architect, double latitude, double longitude) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, int disc, String architect, double latitude, double longitude, String website) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -27,6 +28,7 @@ public class Sight {
         mLocation = location;
         mLatitude = latitude;
         mLongitude = longitude;
+        mWebsite = website;
     }
 
     public int getId() { return mId; }
@@ -47,7 +49,11 @@ public class Sight {
 
     public String getLocation() { return mLocation; }
 
+    public String getWebsite() { return mWebsite; }
+
     public double getLatitude() { return mLatitude; }
 
     public double getLongitude() { return mLongitude; }
+
+
 }

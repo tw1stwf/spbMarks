@@ -12,9 +12,6 @@
         <activity
             android:name=".SightOnMapActivity"
             android:exported="false" />
-        <activity
-            android:name=".StreetViewActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -91,5 +91,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -124,7 +124,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
             Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE id = " + i + " ;", null);
 
             while (query2.moveToNext()) {
-                mSightList.add(new Sight(i,  query2.getInt(1) , query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getInt(7) , query2.getString(8), query2.getDouble(9), query2.getDouble(10)));
+                mSightList.add(new Sight(i,  query2.getInt(1) , query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getInt(7) , query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
             }
         }
 
@@ -154,6 +154,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
             intent.putExtra("year", mSightList.get(position).getDateOfBuild());
             intent.putExtra("latitude", mSightList.get(position).getLatitude());
             intent.putExtra("longitude", mSightList.get(position).getLongitude());
+            intent.putExtra("website", mSightList.get(position).getWebsite());
         }
 
         if(isFiltred == true)
@@ -167,6 +168,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
             intent.putExtra("year", mSightList.get(idList.get(position)-1).getDateOfBuild());
             intent.putExtra("latitude", mSightList.get(idList.get(position)-1).getLatitude());
             intent.putExtra("longitude", mSightList.get(idList.get(position)-1).getLongitude());
+            intent.putExtra("website", mSightList.get(idList.get(position)-1).getWebsite());
         }
 
         startActivity(intent);
@@ -228,7 +230,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
                 favorite();
                 editText.setText("");
                 return true;
-
         }
 
         return false;

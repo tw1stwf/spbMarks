@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -48,6 +49,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private boolean starPressed = false;
     private double latitude, longitude;
     private String name;
+    private String website;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
+        website = getIntent().getStringExtra("website");
 
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
@@ -179,6 +182,12 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         streetpanorama.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
         cardView.setVisibility(View.VISIBLE);
+    }
+
+    public void url (View view)
+    {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(website));
+        startActivity(browserIntent);
     }
 
     @Override
