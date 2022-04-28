@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SightListActivity extends AppCompatActivity implements SightAdapter.OnSightListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private ArrayList<Sight> mSightList;
@@ -38,7 +39,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private static final String TAG = "MyApp";
 
     private int count;
-    private boolean language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        language = getIntent().getBooleanExtra("language", false);
 
         createExampleList();
         buildRecyclerView();
@@ -102,16 +101,23 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private void createExampleList() {
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-        if(language != true) {
+        String currentLang = getString(R.string.language);
+        String isRusLanguageSelected = "ru";
+
+        if(currentLang.equals(isRusLanguageSelected))
+        {
             Cursor query3 = db.rawQuery("SELECT COUNT(*) FROM sights;", null);
             while (query3.moveToNext()) {
                 count = query3.getInt(0);
             }
         }
 
-        if(language == true)
+        else
         {
-
+            Cursor query3 = db.rawQuery("SELECT COUNT(*) FROM sights_en;", null);
+            while (query3.moveToNext()) {
+                count = query3.getInt(0);
+            }
         }
 
         int listSize = count+1;
@@ -128,15 +134,27 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
         mSightList = new ArrayList<>();
 
-        for(int i = 0; i <= count; i++)
+        if(currentLang.equals(isRusLanguageSelected))
         {
-            Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE id = " + i + " ;", null);
+            for (int i = 0; i <= count; i++) {
+                Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE id = " + i + " ;", null);
 
-            while (query2.moveToNext()) {
-                mSightList.add(new Sight(i,  query2.getInt(1) , query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getInt(7) , query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(i, query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
+                }
             }
         }
 
+        else
+        {
+            for (int i = 0; i <= count; i++) {
+                Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE id = " + i + " ;", null);
+
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(i, query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
+                }
+            }
+        }
     }
 
     private void buildRecyclerView() {

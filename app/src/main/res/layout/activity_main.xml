@@ -93,27 +93,27 @@
         app:srcCompat="@drawable/mainlogo" />
 
     <ImageButton
-        android:id="@+id/imageButtonRu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:background="@android:color/transparent"
-        android:onClick="languageRu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/russia" />
-
-    <ImageButton
         android:id="@+id/imageButtonEn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="354dp"
+        android:layout_marginTop="2dp"
         android:background="@android:color/transparent"
         android:onClick="languageEn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/unitedkingdom" />
+
+    <ImageButton
+        android:id="@+id/imageButtonRu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/transparent"
+        android:onClick="languageRu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/russia" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

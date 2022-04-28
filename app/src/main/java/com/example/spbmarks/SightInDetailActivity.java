@@ -88,7 +88,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
         String arch = getIntent().getStringExtra("arch");
         String year = getIntent().getStringExtra("year");
-        int disc = getIntent().getIntExtra("disc", 0);
+        String disc = getIntent().getStringExtra("disc");
 
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
@@ -97,8 +97,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
 
-        yearOfBuild.setText("Год постройки: " + year);
-        architector.setText("Архитектор: " + arch);
+        yearOfBuild.setText(getString(R.string.yearOfBuild) + " " + year);
+        architector.setText(getString(R.string.architect) + " " + arch);
         adress.setText(location + "\n");
         discription.setText(disc);
 
@@ -132,14 +132,25 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
     public void isStared (View view)
     {
+        String currentLang = getString(R.string.language);
+        String isRusLanguageSelected = "ru";
+
         if(isFav == false)
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
             db.execSQL("UPDATE favorites SET isFav = 1 WHERE id = " + pos + ";");
             db.close();
             star.setColorFilter(Color.argb(255, 205, 201, 112));
-            Toast toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
-            toast.show();
+            if(currentLang.equals(isRusLanguageSelected))
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Added to favourites", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
 
         if(isFav == true)
@@ -148,8 +159,16 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
             db.execSQL("UPDATE favorites SET isFav = 0 WHERE id = " + pos + ";");
             db.close();
             star.setColorFilter(Color.argb(255, 151, 151, 151));
-            Toast toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
-            toast.show();
+            if(currentLang.equals(isRusLanguageSelected))
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Delete from favourites", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);

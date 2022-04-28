@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 public class Sight {
     private int mId;
     private int mImageResource;
-    private int mDisc;
+    private String mDisc;
     private boolean mStar;
     private double mLatitude;
     private double mLongitude;
@@ -16,7 +16,7 @@ public class Sight {
     private String mArchitect;
     private String mWebsite;
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, int disc, String architect, double latitude, double longitude, String website) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, String disc, String architect, double latitude, double longitude, String website) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -35,7 +35,7 @@ public class Sight {
 
     public int getImageResource() { return mImageResource; }
 
-    public int getDisc() { return mDisc; }
+    public String getDisc() { return mDisc; }
 
     public boolean getStar() { return mStar; }
 
