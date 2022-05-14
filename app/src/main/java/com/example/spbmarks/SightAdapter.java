@@ -82,11 +82,6 @@ public class SightAdapter extends RecyclerView.Adapter<SightAdapter.ExampleViewH
         return mSightList.size();
     }
 
-    public void filterList(ArrayList<Sight> filteredList) {
-        mSightList = filteredList;
-        notifyDataSetChanged();
-    }
-
     public interface OnSightListener {
         void onSightClick(int position);
     }

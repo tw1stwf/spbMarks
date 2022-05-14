@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,29 +18,27 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class SightListActivity extends AppCompatActivity implements SightAdapter.OnSightListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private ArrayList<Sight> mSightList;
-    private ArrayList<Sight> favoriteList;
-    private ArrayList<Integer> idList = new ArrayList<Integer>();
 
     private RecyclerView mRecyclerView;
     private SightAdapter mAdapter;
     private EditText editText;
     private BottomNavigationView bottomNav;
     private RecyclerView.LayoutManager mLayoutManager;
-    private boolean isFiltred = false;
-    private boolean favoritePageSelected = false;
-
-    private static final String TAG = "MyApp";
 
     private int count;
+    private String sightType;
+    private boolean favoritePageSelected = false;
+
+    private String text;
+
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,31 +71,79 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
                 if(favoritePageSelected == false) {
                     filter(s.toString());
                     if (editText.length() == 0) {
-                        isFiltred = false;
+                        createExampleList();
+                        buildRecyclerView();
+                    }
+                    else {
+                        createSearchList();
+                        buildRecyclerView();
                     }
                 }
 
                 if(favoritePageSelected == true)
                 {
-                    favoriteSearch(s.toString());
+                    filter(s.toString());
+                    if (editText.length() == 0) {
+                        createFavouriteList();
+                        buildRecyclerView();
+                    }
+                    else {
+                        createSearchList();
+                        buildRecyclerView();
+                    }
                 }
             }
         });
     }
 
-    private void filter(String text) {
-        ArrayList<Sight> filteredList = new ArrayList<>();
-        idList.clear();
 
-        for (Sight item : mSightList) {
-            if (item.getSightName().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-                idList.add(item.getId());
+    private void filter(String txt) {
+        text = txt;
+    }
+
+    private void createSearchList()
+    {
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+
+        String currentLang = getString(R.string.language);
+        String isRusLanguageSelected = "ru";
+
+        sightType = getIntent().getStringExtra("type");
+
+        mSightList = new ArrayList<>();
+
+
+        if(currentLang.equals(isRusLanguageSelected)) {
+            if (favoritePageSelected == false) {
+                Cursor query2 = db.rawQuery("SELECT  * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = '" + sightType + "';", null);
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
+                }
+            }
+
+            if (favoritePageSelected == true) {
+                Cursor query2 = db.rawQuery("SELECT  * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = '" + sightType + "' and stared = 1;", null);
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
+                }
             }
         }
-        
-        mAdapter.filterList(filteredList);
-        isFiltred = true;
+
+        else{
+            if (favoritePageSelected == false) {
+                Cursor query2 = db.rawQuery("SELECT  * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = '" + sightType + "';", null);
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
+                }
+            }
+
+            if (favoritePageSelected == true) {
+                Cursor query2 = db.rawQuery("SELECT  * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = '" + sightType + "' and stared = 1;", null);
+                while (query2.moveToNext()) {
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
+                }
+            }
+        }
     }
 
     private void createExampleList() {
@@ -104,55 +152,56 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         String currentLang = getString(R.string.language);
         String isRusLanguageSelected = "ru";
 
-        if(currentLang.equals(isRusLanguageSelected))
-        {
-            Cursor query3 = db.rawQuery("SELECT COUNT(*) FROM sights;", null);
-            while (query3.moveToNext()) {
-                count = query3.getInt(0);
-            }
-        }
-
-        else
-        {
-            Cursor query3 = db.rawQuery("SELECT COUNT(*) FROM sights_en;", null);
-            while (query3.moveToNext()) {
-                count = query3.getInt(0);
-            }
-        }
-
-        int listSize = count+1;
-        boolean stared[] = new boolean[listSize];
-
-        for(int i = 0; i < listSize; i++) {
-            Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + i + " ;", null);
-
-            while (query.moveToNext()) {
-                boolean isFav = query.getInt(1) > 0;
-                stared[i] = isFav;
-            }
-        }
+        sightType = getIntent().getStringExtra("type");
 
         mSightList = new ArrayList<>();
 
         if(currentLang.equals(isRusLanguageSelected))
         {
-            for (int i = 0; i <= count; i++) {
-                Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE id = " + i + " ;", null);
+            Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE type LIKE '" + sightType + "';", null);
 
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(i, query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
                 }
-            }
         }
 
         else
         {
-            for (int i = 0; i <= count; i++) {
-                Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE id = " + i + " ;", null);
+            Cursor query2 = db.rawQuery("SELECT * FROM sights_en  WHERE type LIKE '" + sightType + "';", null);
 
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(i, query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), stared[i], query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11)));
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
                 }
+        }
+
+    }
+
+    private void createFavouriteList() {
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+
+        String currentLang = getString(R.string.language);
+        String isRusLanguageSelected = "ru";
+
+        sightType = getIntent().getStringExtra("type");
+
+        mSightList = new ArrayList<>();
+
+        if(currentLang.equals(isRusLanguageSelected))
+        {
+            Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE type LIKE '" + sightType + "' and stared = 1;", null);
+
+            while (query2.moveToNext()) {
+                mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
+            }
+
+        }
+
+        else
+        {
+            Cursor query2 = db.rawQuery("SELECT * FROM sights_en  WHERE type LIKE '" + sightType + "' and stared = 1;", null);
+
+            while (query2.moveToNext()) {
+                mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getString(12)));
             }
         }
     }
@@ -170,33 +219,18 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     public void onSightClick(int position) {
         Intent intent = new Intent(this, SightInDetailActivity.class);
 
-        if(isFiltred == false)
-        {
-            intent.putExtra("image", mSightList.get(position).getImageResource());
-            intent.putExtra("position", position);
-            intent.putExtra("name", mSightList.get(position).getSightName());
-            intent.putExtra("location", mSightList.get(position).getLocation());
-            intent.putExtra("disc", mSightList.get(position).getDisc());
-            intent.putExtra("arch", mSightList.get(position).getArchitect());
-            intent.putExtra("year", mSightList.get(position).getDateOfBuild());
-            intent.putExtra("latitude", mSightList.get(position).getLatitude());
-            intent.putExtra("longitude", mSightList.get(position).getLongitude());
-            intent.putExtra("website", mSightList.get(position).getWebsite());
-        }
-
-        if(isFiltred == true)
-        {
-            intent.putExtra("image", mSightList.get(idList.get(position)-1).getImageResource());
-            intent.putExtra("position", idList.get(position)-1);
-            intent.putExtra("name", mSightList.get(idList.get(position)-1).getSightName());
-            intent.putExtra("location", mSightList.get(idList.get(position)-1).getLocation());
-            intent.putExtra("disc", mSightList.get(idList.get(position)-1).getDisc());
-            intent.putExtra("arch", mSightList.get(idList.get(position)-1).getArchitect());
-            intent.putExtra("year", mSightList.get(idList.get(position)-1).getDateOfBuild());
-            intent.putExtra("latitude", mSightList.get(idList.get(position)-1).getLatitude());
-            intent.putExtra("longitude", mSightList.get(idList.get(position)-1).getLongitude());
-            intent.putExtra("website", mSightList.get(idList.get(position)-1).getWebsite());
-        }
+        intent.putExtra("id", mSightList.get(position).getId());
+        intent.putExtra("image", mSightList.get(position).getImageResource());
+        intent.putExtra("name", mSightList.get(position).getSightName());
+        intent.putExtra("location", mSightList.get(position).getLocation());
+        intent.putExtra("stared", mSightList.get(position).getStar());
+        intent.putExtra("disc", mSightList.get(position).getDisc());
+        intent.putExtra("arch", mSightList.get(position).getArchitect());
+        intent.putExtra("year", mSightList.get(position).getDateOfBuild());
+        intent.putExtra("latitude", mSightList.get(position).getLatitude());
+        intent.putExtra("longitude", mSightList.get(position).getLongitude());
+        intent.putExtra("website", mSightList.get(position).getWebsite());
+        intent.putExtra("type", mSightList.get(position).getType());
 
         startActivity(intent);
         finish();
@@ -204,39 +238,9 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
     public void back (View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SightType.class);
         startActivity(intent);
         finish();
-    }
-
-    private void favorite() {
-        favoriteList = new ArrayList<>();
-        idList.clear();
-
-        for (Sight item : mSightList) {
-            if (item.getStar() == true) {
-                favoriteList.add(item);
-                idList.add(item.getId());
-            }
-        }
-
-        mAdapter.filterList(favoriteList);
-        isFiltred = true;
-    }
-
-    private void favoriteSearch(String text) {
-        ArrayList<Sight> favoriteFiltredList = new ArrayList<>();
-        idList.clear();
-
-        for (Sight item : favoriteList) {
-            if (item.getSightName().toLowerCase().contains(text.toLowerCase())) {
-                favoriteFiltredList.add(item);
-                idList.add(item.getId());
-            }
-        }
-
-        mAdapter.filterList(favoriteFiltredList);
-        isFiltred = true;
     }
 
     @Override
@@ -254,7 +258,8 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
             case R.id.favorite_page:
                 favoritePageSelected = true;
-                favorite();
+                createFavouriteList();
+                buildRecyclerView();
                 editText.setText("");
                 return true;
         }

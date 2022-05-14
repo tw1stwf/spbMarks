@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#122133"
+    tools:context=".SightType">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/sights_categories"
+        android:textColor="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOther"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginEnd="56dp"
+        android:drawableTop="@drawable/other"
+        android:drawableTint="#d4dbe4"
+        android:onClick="otherList"
+        android:text="@string/other"
+        android:textColor="#d4dbe4"
+        android:textSize="12sp"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
+    <Button
+        android:id="@+id/buttonMuseum"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
+        android:drawableTop="@drawable/museum"
+        android:drawableTint="#d4dbe4"
+        android:onClick="museumList"
+        android:text="@string/museums"
+        android:textColor="#d4dbe4"
+        android:textSize="12sp"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
+    <Button
+        android:id="@+id/buttonCathedral"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="184dp"
+        android:drawableTop="@drawable/cathedral"
+        android:drawableTint="#d4dbe4"
+        android:onClick="cathedralList"
+        android:text="@string/cathedral"
+        android:textColor="#d4dbe4"
+        android:textSize="12sp"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
+    <Button
+        android:id="@+id/buttonSight"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="56dp"
+        android:drawableTop="@drawable/sight"
+        android:drawableTint="#d4dbe4"
+        android:onClick="sightList"
+        android:text="@string/sight"
+        android:textColor="#d4dbe4"
+        android:textSize="12sp"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
+    <Button
+        android:id="@+id/buttonBackFromSightType"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="6dp"
+        android:gravity="top"
+        android:onClick="back"
+        app:icon="@drawable/back"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

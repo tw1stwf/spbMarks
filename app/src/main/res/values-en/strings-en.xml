@@ -29,4 +29,13 @@
 
     <string name="architect">Architect: </string>
 
+    <string name="sights_categories">Sights categories</string>
+
+    <string name="museums">Museums</string>
+
+    <string name="other">Other</string>
+
+    <string name="cathedral">Cathedrals</string>
+
+    <string name="sight">Sights</string>
 </resources>

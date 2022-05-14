@@ -40,7 +40,6 @@ public class SightOnMapActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
-
         cityMark = new LatLng(59.9429296, 30.314819);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(cityMark, 12));
 

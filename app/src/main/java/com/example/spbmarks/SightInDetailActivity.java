@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,32 +41,32 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private View streetpanorama;
     private ScrollView scrollView;
     private CardView cardView;
-
     private GoogleMap map;
     private LatLng sightMark;
 
-    private int pos;
+    private int id;
     private boolean isFav;
     private boolean starPressed = false;
     private double latitude, longitude;
     private String name;
     private String website;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sightdetail);
 
-        imageViewReceipt = (ImageView) findViewById(R.id.image);
-        star = (ImageButton) findViewById(R.id.imageButtonStar);
-        sightName = (TextView) findViewById(R.id.textViewName);
-        discription = (TextView) findViewById(R.id.textViewDescription);
-        yearOfBuild = (TextView) findViewById(R.id.textViewDateOfBuild);
-        architector = (TextView) findViewById(R.id.textViewArchitect);
-        adress = (TextView) findViewById(R.id.textViewAdress);
-        streetpanorama = (View) findViewById(R.id.streetviewpanorama2);
-        scrollView = (ScrollView) findViewById(R.id.scrollview);
-        cardView = (CardView) findViewById(R.id.cardView);
+        imageViewReceipt = findViewById(R.id.image);
+        star = findViewById(R.id.imageButtonStar);
+        sightName = findViewById(R.id.textViewName);
+        discription = findViewById(R.id.textViewDescription);
+        yearOfBuild = findViewById(R.id.textViewDateOfBuild);
+        architector = findViewById(R.id.textViewArchitect);
+        adress = findViewById(R.id.textViewAdress);
+        streetpanorama = findViewById(R.id.streetviewpanorama2);
+        scrollView = findViewById(R.id.scrollview);
+        cardView =  findViewById(R.id.cardView);
 
         streetpanorama.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
@@ -81,8 +82,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
                         .findFragmentById(R.id.streetviewpanorama2);
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
 
+        id = getIntent().getIntExtra("id", 0);
         int image = getIntent().getIntExtra("image", 0);
-        pos = getIntent().getIntExtra("position", 0) + 1;
         name = getIntent().getStringExtra("name");
         String location = getIntent().getStringExtra("location");
 
@@ -93,6 +94,9 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
         website = getIntent().getStringExtra("website");
+        type = getIntent().getStringExtra("type");
+
+        Log.i("TAG", "id sight = " + id);
 
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
@@ -103,11 +107,10 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         discription.setText(disc);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        db.execSQL("INSERT OR IGNORE INTO favorites VALUES ( " + pos + ", 0);");
-        Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + pos + " ;", null);
+        Cursor query = db.rawQuery("SELECT stared FROM sights WHERE id = " + id + ";", null);
 
         while(query.moveToNext()){
-            isFav = query.getInt(1) > 0;
+            isFav = query.getInt(0) > 0;
 
             if(isFav == true)
             {
@@ -138,53 +141,58 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         if(isFav == false)
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-            db.execSQL("UPDATE favorites SET isFav = 1 WHERE id = " + pos + ";");
-            db.close();
+
+            db.execSQL("UPDATE sights SET stared = 1 WHERE id = " + id + ";");
+            db.execSQL("UPDATE sights_en SET stared = 1 WHERE id = " + id + ";");
             star.setColorFilter(Color.argb(255, 205, 201, 112));
+
+            Toast toast;
+
             if(currentLang.equals(isRusLanguageSelected))
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
-                toast.show();
+                toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
             }
+
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Added to favourites", Toast.LENGTH_SHORT);
-                toast.show();
+                toast = Toast.makeText(getApplicationContext(), "Added to favourites", Toast.LENGTH_SHORT);
             }
+
+            toast.show();
+            db.close();
         }
 
         if(isFav == true)
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-            db.execSQL("UPDATE favorites SET isFav = 0 WHERE id = " + pos + ";");
-            db.close();
+
+            db.execSQL("UPDATE sights SET stared = 0 WHERE id = " + id + ";");
+            db.execSQL("UPDATE sights_en SET stared = 0 WHERE id = " + id + ";");
+
             star.setColorFilter(Color.argb(255, 151, 151, 151));
+
+            Toast toast;
+
             if(currentLang.equals(isRusLanguageSelected))
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
-                toast.show();
+                toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
             }
+
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Delete from favourites", Toast.LENGTH_SHORT);
-                toast.show();
+                toast = Toast.makeText(getApplicationContext(), "Delete from favourites", Toast.LENGTH_SHORT);
             }
+
+            toast.show();
+            db.close();
         }
 
-        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        Cursor query = db.rawQuery("SELECT * FROM favorites WHERE id = " + pos + " ;", null);
-
-        while(query.moveToNext()){
-            isFav = query.getInt(1) > 0;
-        }
-
-        query.close();
-        db.close();
     }
 
     public void back(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
+        intent.putExtra("type", type);
         startActivity(intent);
         finish();
     }

@@ -28,4 +28,14 @@
     <string name="yearOfBuild">Год постройки:  </string>
 
     <string name="architect">Архитектор:  </string>
+
+    <string name="sights_categories">Категории достопримечательностей</string>
+
+    <string name="museums">Музеи</string>
+
+    <string name="other">Прочие</string>
+
+    <string name="cathedral">Соборы</string>
+
+    <string name="sight">Памятники</string>
 </resources>

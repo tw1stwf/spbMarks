@@ -5,18 +5,19 @@ import android.graphics.drawable.Drawable;
 public class Sight {
     private int mId;
     private int mImageResource;
-    private String mDisc;
-    private boolean mStar;
     private double mLatitude;
     private double mLongitude;
+    private boolean mStar;
+    private String mDisc;
     private String mSightName;
     private String mMetro;
     private String mLocation;
     private String mDateOfBuild;
     private String mArchitect;
     private String mWebsite;
+    private String mType;
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, String disc, String architect, double latitude, double longitude, String website) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, String disc, String architect, double latitude, double longitude, String website, String type) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -29,15 +30,20 @@ public class Sight {
         mLatitude = latitude;
         mLongitude = longitude;
         mWebsite = website;
+        mType = type;
     }
 
     public int getId() { return mId; }
 
     public int getImageResource() { return mImageResource; }
 
-    public String getDisc() { return mDisc; }
+    public double getLatitude() { return mLatitude; }
+
+    public double getLongitude() { return mLongitude; }
 
     public boolean getStar() { return mStar; }
+
+    public String getDisc() { return mDisc; }
 
     public String getSightName() { return mSightName; }
 
@@ -51,9 +57,5 @@ public class Sight {
 
     public String getWebsite() { return mWebsite; }
 
-    public double getLatitude() { return mLatitude; }
-
-    public double getLongitude() { return mLongitude; }
-
-
+    public String getType() { return mType; }
 }

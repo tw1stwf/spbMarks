@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar">
         <activity
+            android:name=".SightType"
+            android:exported="false" />
+        <activity
             android:name=".SightOnMapActivity"
             android:exported="false" />
 
