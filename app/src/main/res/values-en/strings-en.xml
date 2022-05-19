@@ -38,4 +38,21 @@
     <string name="cathedral">Cathedrals</string>
 
     <string name="sight">Sights</string>
+
+    <string name="buttonLogin">Login</string>
+
+    <string name="buttonSignup">Sign up</string>
+
+    <string name="authorization">Authorization</string>
+
+    <string name="registration">Registration</string>
+
+    <string name="labelLogin">Login</string>
+
+    <string name="labelPassword">Password</string>
+
+    <string name="email">Email</string>
+
+    <string name="reEnterPassword">Repeat password</string>
+
 </resources>

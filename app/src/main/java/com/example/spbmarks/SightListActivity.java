@@ -45,7 +45,7 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sightlist);
 
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);

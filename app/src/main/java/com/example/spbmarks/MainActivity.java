@@ -36,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS favorites (id INTEGER, isFav BOOLEAN, sight4 TEXT, UNIQUE(id))");
-
         db.execSQL("CREATE TABLE IF NOT EXISTS sights (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type TEXT, isFav BOOLEAN, UNIQUE(id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS sights_en (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type TEXT, isFav BOOLEAN, UNIQUE(id))");
-
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT, password TEXT, email TEXT, UNIQUE(id))");
 
         buttonRu = (ImageButton) findViewById(R.id.imageButtonRu);
         buttonEn = (ImageButton) findViewById(R.id.imageButtonEn);
@@ -55,27 +53,6 @@ public class MainActivity extends AppCompatActivity {
         int draw_8 = R.drawable.petrop;
         int draw_9 = R.drawable.kunts;
         int draw_10 = R.drawable.marink;
-
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (1, 0, 'cathedral')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (2, 1, 'cathedral')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (3, 0, 'museum')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (4, 1, 'sight')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (5, 0, 'other')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (6, 1, 'other')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (7, 1, 'museum')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (8, 0, 'other')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (9, 0, 'museum')");
-
-        db.execSQL("INSERT OR IGNORE INTO favorites(id, isFav, sight4) VALUES (10, 0, 'other')");
 
         //sights
 
@@ -255,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             conf.setLocale(new Locale(localeCode.toLowerCase()));
         } else {
@@ -301,5 +279,12 @@ public class MainActivity extends AppCompatActivity {
         setAppLocale("ru");
         finish();
         startActivity(getIntent());
+    }
+
+    public void userExit(View view)
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

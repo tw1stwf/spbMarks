@@ -38,4 +38,20 @@
     <string name="cathedral">Соборы</string>
 
     <string name="sight">Памятники</string>
+
+    <string name="buttonLogin">Войти</string>
+
+    <string name="buttonSignup">Зарегистрироваться</string>
+
+    <string name="authorization">Авторизация</string>
+
+    <string name="registration">Регистрация</string>
+
+    <string name="labelLogin">Логин</string>
+
+    <string name="labelPassword">Пароль</string>
+
+    <string name="email">Почта</string>
+
+    <string name="reEnterPassword">Повторите пароль</string>
 </resources>

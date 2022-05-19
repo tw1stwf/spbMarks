@@ -96,8 +96,6 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         website = getIntent().getStringExtra("website");
         type = getIntent().getStringExtra("type");
 
-        Log.i("TAG", "id sight = " + id);
-
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
 
