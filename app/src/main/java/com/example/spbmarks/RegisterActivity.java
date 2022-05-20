@@ -12,6 +12,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
+import java.security.MessageDigest;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private TextInputLayout textBoxLogin, textBoxPassword, textBoxPasswordRepeat, textBoxEmail;
@@ -31,6 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void confirmReg(View view)
     {
+        String currentLang = getString(R.string.language);
+        String isRusLanguageSelected = "ru";
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         login = textBoxLogin.getEditText().getText().toString();
         password = textBoxPassword.getEditText().getText().toString();
@@ -39,11 +44,21 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(textBoxLogin.getEditText().getText().length() > 0 &&  textBoxPassword.getEditText().getText().length() > 0 && textBoxPasswordRepeat.getEditText().getText().length() > 0 && textBoxEmail.getEditText().getText().length() > 0)
         {
-            if(password.equals(passwordRepeat)) {
-                SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-                db.execSQL("INSERT INTO users(login, password, email) values ('" + login + "', '" + password + "', '" + email + "')");
+            if(password.equals(passwordRepeat) && email.matches(emailPattern)) {
 
-                toast = Toast.makeText(getApplicationContext(), "Пользователь " + login + " успешно зарегистрирован", Toast.LENGTH_SHORT);
+                String hashPassword = md5(password);
+                SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+                db.execSQL("INSERT INTO users(login, password, email) values ('" + login + "', '" + hashPassword + "', '" + email + "')");
+
+                if(currentLang.equals(isRusLanguageSelected)) {
+                    toast = Toast.makeText(getApplicationContext(), "Пользователь " + login + " успешно зарегистрирован", Toast.LENGTH_SHORT);
+                }
+
+                else
+                {
+                    toast = Toast.makeText(getApplicationContext(), "User " + login + " successfully registered", Toast.LENGTH_SHORT);
+                }
+
                 toast.show();
 
                 Intent intent = new Intent(this, LoginActivity.class);
@@ -53,18 +68,34 @@ public class RegisterActivity extends AppCompatActivity {
 
             else
             {
-                toast = Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_SHORT);
+                if(currentLang.equals(isRusLanguageSelected)) {
+                    toast = Toast.makeText(getApplicationContext(), "Проверьте правильность ввода данных", Toast.LENGTH_SHORT);
+                }
+
+                else
+                {
+                    toast = Toast.makeText(getApplicationContext(), "Check the correctness of the data entered", Toast.LENGTH_SHORT);
+                }
+
                 toast.show();
+
+
             }
         }
 
         else
         {
-            toast = Toast.makeText(getApplicationContext(), "Заполните все поля", Toast.LENGTH_SHORT);
+            if(currentLang.equals(isRusLanguageSelected)) {
+                toast = Toast.makeText(getApplicationContext(), "Заполните все поля", Toast.LENGTH_SHORT);
+            }
+
+            else
+            {
+                toast = Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT);
+            }
+
             toast.show();
         }
-
-
 
     }
 
@@ -73,5 +104,20 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public static final String md5(final String toEncrypt) {
+        try {
+            final MessageDigest digest = MessageDigest.getInstance("md5");
+            digest.update(toEncrypt.getBytes());
+            final byte[] bytes = digest.digest();
+            final StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(String.format("%02X", bytes[i]));
+            }
+            return sb.toString().toLowerCase();
+        } catch (Exception exc) {
+            return "";
+        }
     }
 }

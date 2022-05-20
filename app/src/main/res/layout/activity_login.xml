@@ -7,6 +7,30 @@
     android:background="#122133"
     tools:context=".LoginActivity">
 
+    <ImageButton
+        android:id="@+id/imageButtonRu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/transparent"
+        android:onClick="languageRu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/russia" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="354dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/transparent"
+        android:onClick="languageEn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/unitedkingdom" />
+
     <Button
         android:id="@+id/buttonSignUp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"

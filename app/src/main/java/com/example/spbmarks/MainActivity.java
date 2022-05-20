@@ -28,7 +28,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton buttonRu, buttonEn;
+    private ImageButton buttonRu, buttonEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS sights_en (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type TEXT, isFav BOOLEAN, UNIQUE(id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT, password TEXT, email TEXT, UNIQUE(id))");
 
-        buttonRu = (ImageButton) findViewById(R.id.imageButtonRu);
-        buttonEn = (ImageButton) findViewById(R.id.imageButtonEn);
+        buttonRu =  findViewById(R.id.imageButtonRu);
+        buttonEn =  findViewById(R.id.imageButtonEn);
 
         int draw_2 = R.drawable.isac;
         int draw_1 = R.drawable.kazan;
@@ -270,14 +270,12 @@ public class MainActivity extends AppCompatActivity {
     public void languageEn(View view)
     {
         setAppLocale("en");
-        finish();
         startActivity(getIntent());
     }
 
     public void languageRu(View view)
     {
         setAppLocale("ru");
-        finish();
         startActivity(getIntent());
     }
 
