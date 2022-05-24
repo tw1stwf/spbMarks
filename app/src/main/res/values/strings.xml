@@ -54,4 +54,6 @@
     <string name="email">Почта</string>
 
     <string name="reEnterPassword">Повторите пароль</string>
+
+    <string name="feelsLike">Ощущается как </string>
 </resources>

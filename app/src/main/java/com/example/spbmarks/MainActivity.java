@@ -1,5 +1,6 @@
 package com.example.spbmarks;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -20,14 +21,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
+    public static String BaseUrl = "http://api.openweathermap.org/";
+    public static String AppId = "25ee596f7616e818f80f401ef0d3a2d6";
+    public static String lat = "59.934178";
+    public static String lon = "30.317944";
+    public static String unit = "metric";
+    public static String lang = "ru";
+    private TextView temperature, about, feels_like;
+    private ImageView icon;
     private ImageButton buttonRu, buttonEn;
 
     @Override
@@ -39,9 +55,20 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS sights (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type TEXT, isFav BOOLEAN, UNIQUE(id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS sights_en (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type TEXT, isFav BOOLEAN, UNIQUE(id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT, password TEXT, email TEXT, UNIQUE(id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sight_time_price (id INTEGER, openTime INTEGER, closeTime INTEGER, price INTEGER, priceForKids INTEGER, UNIQUE(id))");
 
         buttonRu =  findViewById(R.id.imageButtonRu);
         buttonEn =  findViewById(R.id.imageButtonEn);
+
+        temperature = findViewById(R.id.textView);
+        about = findViewById(R.id.textView3);
+        feels_like = findViewById(R.id.textView4);
+
+        feels_like.setVisibility(View.GONE);
+
+        icon = findViewById(R.id.imageView3);
+
+        getCurrentData();
 
         int draw_2 = R.drawable.isac;
         int draw_1 = R.drawable.kazan;
@@ -284,5 +311,46 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    void getCurrentData() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        WeatherService service = retrofit.create(WeatherService.class);
+        Call<WeatherResponse> call = service.getCurrentWeatherData(lat, lon,lang, AppId, unit);
+
+        call.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
+                if (response.code() == 200) {
+                    WeatherResponse weatherResponse = response.body();
+                    assert weatherResponse != null;
+                    feels_like.setVisibility(View.VISIBLE);
+
+                    float temp = weatherResponse.main.temp;
+                    int roundTemp = Math.round(temp);
+
+                    float feels_temp = weatherResponse.main.feels_like;
+                    int roundFeelsTemp = Math.round(feels_temp);
+
+                    temperature.setText("" + roundTemp + "°C");
+                    about.setText("" + weatherResponse.getWeatherList().get(0).description);
+                    feels_like.append(" " + roundFeelsTemp + "°C");
+
+                    String w_icon_num = weatherResponse.getWeatherList().get(0).icon;
+                    String new_icon_num = "w_icon_" + w_icon_num;
+                    int res = getResources().getIdentifier(new_icon_num, "drawable", getPackageName());
+                    icon.setImageResource(res);
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+                temperature.setText(t.getMessage());
+            }
+        });
     }
 }
