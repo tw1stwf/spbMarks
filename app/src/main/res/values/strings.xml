@@ -25,9 +25,9 @@
 
     <string name="language">ru</string>
 
-    <string name="yearOfBuild">Год постройки:  </string>
+    <string name="yearOfBuild"><b>Год постройки: </b></string>
 
-    <string name="architect">Архитектор:  </string>
+    <string name="architect"><b>Архитектор:</b> </string>
 
     <string name="sights_categories">Категории достопримечательностей</string>
 
@@ -56,4 +56,12 @@
     <string name="reEnterPassword">Повторите пароль</string>
 
     <string name="feelsLike">Ощущается как </string>
+
+    <string name="time"><b>Часы работы: </b></string>
+
+    <string name="price"><b>Цена: </b></string>
+
+    <string name="priceKids"><b>Цена (0-16): </b></string>
+
+    <string name="address"><b>Адрес: </b></string>
 </resources>

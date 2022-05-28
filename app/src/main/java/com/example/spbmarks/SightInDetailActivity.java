@@ -33,11 +33,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
     private ImageView imageViewReceipt;
     private ImageButton star;
-    private TextView sightName;
-    private TextView discription;
-    private TextView yearOfBuild;
-    private TextView architector;
-    private TextView adress;
+    private TextView openTime, price, priceKids, sightName, discription, yearOfBuild, architector, adress;
     private View streetpanorama;
     private ScrollView scrollView;
     private CardView cardView;
@@ -45,12 +41,9 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private LatLng sightMark;
 
     private int id;
-    private boolean isFav;
-    private boolean starPressed = false;
+    private boolean isFav, starPressed = false;
     private double latitude, longitude;
-    private String name;
-    private String website;
-    private String type;
+    private String name, website, type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +60,9 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         streetpanorama = findViewById(R.id.streetviewpanorama2);
         scrollView = findViewById(R.id.scrollview);
         cardView =  findViewById(R.id.cardView);
+        openTime = findViewById(R.id.textViewOpenTime);
+        price = findViewById(R.id.textViewPrice);
+        priceKids = findViewById(R.id.textViewPriceKids);
 
         streetpanorama.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
@@ -83,13 +79,17 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
 
         id = getIntent().getIntExtra("id", 0);
-        int image = getIntent().getIntExtra("image", 0);
         name = getIntent().getStringExtra("name");
-        String location = getIntent().getStringExtra("location");
+        int image = getIntent().getIntExtra("image", 0);
 
+        String location = getIntent().getStringExtra("location");
         String arch = getIntent().getStringExtra("arch");
         String year = getIntent().getStringExtra("year");
         String disc = getIntent().getStringExtra("disc");
+        String opentime = getIntent().getStringExtra("openTime");
+        String closetime = getIntent().getStringExtra("closeTime");
+        String priceadult = getIntent().getStringExtra("price");
+        String pricekids = getIntent().getStringExtra("priceKids");
 
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
@@ -99,10 +99,14 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
 
-        yearOfBuild.setText(getString(R.string.yearOfBuild) + " " + year);
-        architector.setText(getString(R.string.architect) + " " + arch);
-        adress.setText(location + "\n");
+        yearOfBuild.append(year);
+        architector.append(arch);
+        adress.append(location);
         discription.setText(disc);
+
+        openTime.append(opentime + " - " + closetime);
+        price.append(priceadult);
+        priceKids.append(pricekids);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         Cursor query = db.rawQuery("SELECT stared FROM sights WHERE id = " + id + ";", null);

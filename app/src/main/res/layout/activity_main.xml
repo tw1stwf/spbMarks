@@ -9,12 +9,37 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="83dp">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="294dp"
+        android:layout_height="262dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mainlogo" />
+
+    <Button
+        android:id="@+id/buttonLandmarks"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="364dp"
+        android:onClick="goToSights"
+        android:text="@string/sights"
+        android:textColor="#D4DBE4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <Button
         android:id="@+id/buttonAbout"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="424dp"
+        android:layout_marginTop="468dp"
         android:onClick="aboutUs"
         android:text="@string/aboutAppName"
         android:textColor="#D4DBE4"
@@ -25,41 +50,11 @@
         app:strokeColor="#d4dbe4" />
 
     <Button
-        android:id="@+id/buttonLandmarks"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:onClick="goToSights"
-        android:text="@string/sights"
-        android:textColor="#D4DBE4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
-
-    <Button
-        android:id="@+id/buttonOnMap"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="372dp"
-        android:onClick="onMap"
-        android:text="@string/onMap"
-        android:textColor="#d4dbe4"
-        app:iconTint="#d4dbe4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
-
-    <Button
         android:id="@+id/buttonExit"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="520dp"
         android:onClick="exit"
         android:text="@string/exit"
         android:textColor="#D4DBE4"
@@ -69,16 +64,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="294dp"
-        android:layout_height="262dp"
-        android:layout_marginTop="44dp"
+    <Button
+        android:id="@+id/buttonOnMap"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="416dp"
+        android:onClick="onMap"
+        android:text="@string/onMap"
+        android:textColor="#d4dbe4"
+        app:iconTint="#d4dbe4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mainlogo" />
+        app:strokeColor="#d4dbe4" />
 
     <ImageButton
         android:id="@+id/imageButtonEn"
@@ -120,39 +120,30 @@
         android:id="@+id/imageView3"
         android:layout_width="61dp"
         android:layout_height="60dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="580dp"
+        android:layout_marginStart="-8dp"
+        android:layout_marginTop="-8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/w_icon_10d" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="588dp"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="612dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="24dp"
         android:textAllCaps="true"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginTop="630dp"
-        android:text="@string/feelsLike"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="-2dp"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

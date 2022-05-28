@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         textBoxLogin = findViewById(R.id.textBoxGetLogin);
         textBoxPassword = findViewById(R.id.textBoxGetPassword);
 
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT, password TEXT, email TEXT, UNIQUE(id))");
     }
 
     public void login(View view)
@@ -84,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
             toast.show();
         }
+
     }
 
     public void exit (View view)

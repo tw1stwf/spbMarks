@@ -25,9 +25,9 @@
 
     <string name="language">en</string>
 
-    <string name="yearOfBuild">Year of build: </string>
+    <string name="yearOfBuild"><b>Year of build: </b></string>
 
-    <string name="architect">Architect: </string>
+    <string name="architect"><b>Architect:</b> </string>
 
     <string name="sights_categories">Sights categories</string>
 
@@ -56,4 +56,12 @@
     <string name="reEnterPassword">Repeat password</string>
 
     <string name="feelsLike">Feels like </string>
+
+    <string name="time"><b>Opening hours: </b></string>
+
+    <string name="price"><b>Price: </b></string>
+
+    <string name="priceKids"><b>Price (0-16): </b></string>
+
+    <string name="address"><b>Address: </b></string>
 </resources>
