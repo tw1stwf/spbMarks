@@ -7,6 +7,24 @@
     android:background="#122133"
     tools:context=".SightType">
 
+    <Button
+        android:id="@+id/buttonFavourites"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="280dp"
+        android:drawableTop="@drawable/favicon_small"
+        android:drawableTint="#d4dbe4"
+        android:onClick="favourites"
+        android:text="@string/favPage"
+        android:textColor="#d4dbe4"
+        android:textSize="12sp"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

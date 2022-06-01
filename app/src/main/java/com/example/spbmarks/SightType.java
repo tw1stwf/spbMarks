@@ -53,4 +53,12 @@ public class SightType extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void favourites(View view)
+    {
+        Intent intent = new Intent(this, SightListActivity.class);
+        intent.putExtra("type", "favourites");
+        startActivity(intent);
+        finish();
+    }
 }

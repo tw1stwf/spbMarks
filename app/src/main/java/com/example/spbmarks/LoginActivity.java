@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         textBoxPassword = findViewById(R.id.textBoxGetPassword);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT, password TEXT, email TEXT, UNIQUE(id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, login TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL, UNIQUE(id))");
     }
 
     public void login(View view)
