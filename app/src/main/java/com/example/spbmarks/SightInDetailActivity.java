@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private int id;
     private boolean isFav, starPressed = false;
     private double latitude, longitude;
-    private String name, website, type;
+    private String name, website;
+    private static int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +96,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
         website = getIntent().getStringExtra("website");
-        type = getIntent().getStringExtra("type");
+        type = getIntent().getIntExtra("type", 0);
 
         imageViewReceipt.setImageResource(image);
         sightName.setText(name);
@@ -111,11 +113,10 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         Cursor query = db.rawQuery("SELECT stared FROM sights WHERE id = " + id + ";", null);
 
-        while(query.moveToNext()){
+        while (query.moveToNext()) {
             isFav = query.getInt(0) > 0;
 
-            if(isFav == true)
-            {
+            if (isFav == true) {
                 star.setColorFilter(Color.argb(255, 205, 201, 112));
             }
         }

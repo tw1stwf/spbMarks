@@ -64,4 +64,6 @@
     <string name="priceKids"><b>Цена (0-16): </b></string>
 
     <string name="address"><b>Адрес: </b></string>
+
+    <string name="guest">Войти как гость</string>
 </resources>

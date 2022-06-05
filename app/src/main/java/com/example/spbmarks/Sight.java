@@ -15,7 +15,7 @@ public class Sight {
     private String mDateOfBuild;
     private String mArchitect;
     private String mWebsite;
-    private String mType;
+    private int mType;
 
     private String mPriceKids;
     private String mPrice;
@@ -23,7 +23,7 @@ public class Sight {
     private String mCloseTime;
 
 
-    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, String disc, String architect, double latitude, double longitude, String website, String type, String openTime, String closeTime, String price, String priceKids) {
+    public Sight(int id, int imageResource, String sightName, String metro, String location , boolean star, String dateOfBuild, String disc, String architect, double latitude, double longitude, String website, int type, String openTime, String closeTime, String price, String priceKids) {
         mId = id;
         mImageResource = imageResource;
         mSightName = sightName;
@@ -67,7 +67,7 @@ public class Sight {
 
     public String getWebsite() { return mWebsite; }
 
-    public String getType() { return mType; }
+    public int getType() { return mType; }
 
     public String getPriceKids() { return mPriceKids; }
 

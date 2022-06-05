@@ -37,7 +37,7 @@
 
     <string name="cathedral">Cathedrals</string>
 
-    <string name="sight">Sights</string>
+    <string name="sight">Monuments</string>
 
     <string name="buttonLogin">Login</string>
 
@@ -64,4 +64,6 @@
     <string name="priceKids"><b>Price (0-16): </b></string>
 
     <string name="address"><b>Address: </b></string>
+
+    <string name="guest">Login as guest</string>
 </resources>

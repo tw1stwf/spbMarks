@@ -7,6 +7,21 @@
     android:background="#122133"
     tools:context=".LoginActivity">
 
+    <Button
+        android:id="@+id/buttonGuestMode"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="516dp"
+        android:onClick="guest"
+        android:text="@string/guest"
+        android:textColor="#d4dbe4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <ImageButton
         android:id="@+id/imageButtonRu2"
         android:layout_width="wrap_content"
@@ -36,7 +51,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="516dp"
+        android:layout_marginTop="568dp"
         android:onClick="registration"
         android:text="@string/buttonSignup"
         android:textColor="#d4dbe4"
@@ -51,7 +66,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="568dp"
+        android:layout_marginTop="620dp"
         android:onClick="exit"
         android:text="@string/exit"
         android:textColor="#D4DBE4"

@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private String login, password;
     private Toast toast;
     private int id;
+
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(id > 0) {
                     Intent intent = new Intent(this, MainActivity.class);
+                    int userId = Integer.parseInt(login);
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
                 }
@@ -142,5 +147,15 @@ public class LoginActivity extends AppCompatActivity {
     {
         setAppLocale("ru");
         startActivity(getIntent());
+    }
+
+    public void guest(View view)
+    {
+        login = textBoxLogin.getEditText().getText().toString();
+        password = textBoxPassword.getEditText().getText().toString();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
