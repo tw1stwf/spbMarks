@@ -24,9 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textBoxLogin, textBoxPassword;
     private String login, password;
     private Toast toast;
-    private int id, ids;
-
-    private static final String TAG = "MyActivity";
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

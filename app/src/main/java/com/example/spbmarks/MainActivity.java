@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView temperature, about;
     private ImageView icon;
     private ImageButton buttonRu, buttonEn;
-    private static int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         temperature = findViewById(R.id.textView);
         about = findViewById(R.id.textView3);;
         icon = findViewById(R.id.imageView3);
-
-        userId = getIntent().getIntExtra("userId", 0);
 
         getCurrentData();
 
@@ -282,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
     public void goToSights (View view)
     {
         Intent intent = new Intent(this, SightType.class);
-        intent.putExtra("userId", userId);
         startActivity(intent);
         finish();
     }

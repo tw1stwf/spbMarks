@@ -34,13 +34,11 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
 
-    private int count, sightId, isStared;
+    private int sightId, isStared;
     private int sightType;
     private boolean favoritePageSelected = false;
     private String text;
-    private int userId, sight_id;
-
-    private static final String TAG = "MyActivity";
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
