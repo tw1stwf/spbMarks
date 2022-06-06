@@ -150,10 +150,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void guest(View view)
     {
-        login = textBoxLogin.getEditText().getText().toString();
-        password = textBoxPassword.getEditText().getText().toString();
-
         Intent intent = new Intent(this, MainActivity.class);
+        ((MyApplication) this.getApplication()).setUserId(0);
         startActivity(intent);
         finish();
     }

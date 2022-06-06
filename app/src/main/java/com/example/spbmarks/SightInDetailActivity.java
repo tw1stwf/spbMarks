@@ -157,9 +157,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-            if(userId > 0) {
-                db.execSQL("INSERT INTO favourites(sight_id, user_id) VALUES (" + id + ", " + userId + ")");
-            }
+            db.execSQL("INSERT INTO favourites(sight_id, user_id) VALUES (" + id + ", " + userId + ")");
 
             star.setColorFilter(Color.argb(255, 205, 201, 112));
             Toast toast;
@@ -184,9 +182,7 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-            if(userId > 0) {
-                db.execSQL("DELETE FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";");
-            }
+            db.execSQL("DELETE FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";");
 
             star.setColorFilter(Color.argb(255, 151, 151, 151));
             Toast toast;
