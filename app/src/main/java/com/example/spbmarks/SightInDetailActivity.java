@@ -46,6 +46,9 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private double latitude, longitude;
     private String name, website;
     private static int type;
+    private int userId;
+
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +113,28 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         price.append(priceadult);
         priceKids.append(pricekids);
 
+        userId = ((MyApplication) this.getApplication()).getUserId();
+
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        Cursor query = db.rawQuery("SELECT stared FROM sights WHERE id = " + id + ";", null);
+        Cursor query = db.rawQuery("SELECT count(*) FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";", null);
 
         while (query.moveToNext()) {
-            isFav = query.getInt(0) > 0;
+            int fav = query.getInt(0);
 
-            if (isFav == true) {
+            if (fav != 0)
+            {
                 star.setColorFilter(Color.argb(255, 205, 201, 112));
+                isFav = false;
+            }
+
+            else
+            {
+                isFav = true;
             }
         }
 
         query.close();
         db.close();
-
-        starPressed = false;
     }
 
     @Override
@@ -141,14 +151,17 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
         String currentLang = getString(R.string.language);
         String isRusLanguageSelected = "ru";
 
-        if(isFav == false)
+        int userId = ((MyApplication) this.getApplication()).getUserId();
+
+        if(isFav)
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-            db.execSQL("UPDATE sights SET stared = 1 WHERE id = " + id + ";");
-            db.execSQL("UPDATE sights_en SET stared = 1 WHERE id = " + id + ";");
-            star.setColorFilter(Color.argb(255, 205, 201, 112));
+            if(userId > 0) {
+                db.execSQL("INSERT INTO favourites(sight_id, user_id) VALUES (" + id + ", " + userId + ")");
+            }
 
+            star.setColorFilter(Color.argb(255, 205, 201, 112));
             Toast toast;
 
             if(currentLang.equals(isRusLanguageSelected))
@@ -163,17 +176,19 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
             toast.show();
             db.close();
+
+            isFav = false;
         }
 
-        if(isFav == true)
+        else
         {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-            db.execSQL("UPDATE sights SET stared = 0 WHERE id = " + id + ";");
-            db.execSQL("UPDATE sights_en SET stared = 0 WHERE id = " + id + ";");
+            if(userId > 0) {
+                db.execSQL("DELETE FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";");
+            }
 
             star.setColorFilter(Color.argb(255, 151, 151, 151));
-
             Toast toast;
 
             if(currentLang.equals(isRusLanguageSelected))
@@ -188,6 +203,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
             toast.show();
             db.close();
+
+            isFav = true;
         }
 
     }
@@ -195,7 +212,10 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     public void back(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
+
+        type = ((MyApplication) this.getApplication()).getType();
         intent.putExtra("type", type);
+        Log.i(TAG, "" + type);
         startActivity(intent);
         finish();
     }

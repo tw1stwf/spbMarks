@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textBoxLogin, textBoxPassword;
     private String login, password;
     private Toast toast;
-    private int id;
+    private int id, ids;
 
     private static final String TAG = "MyActivity";
 
@@ -52,15 +52,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if(textBoxLogin.getEditText().getText().length() > 0 && textBoxPassword.getEditText().getText().length() > 0) {
             SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-            Cursor query = db.rawQuery("SELECT count(*) as count FROM users WHERE password = '" + hashedPassword + "' and login = '" + login + "';", null);
+            Cursor query = db.rawQuery("SELECT id FROM users WHERE password = '" + hashedPassword + "' and login = '" + login + "';", null);
 
             while (query.moveToNext())
                 id = query.getInt(0);
 
                 if(id > 0) {
                     Intent intent = new Intent(this, MainActivity.class);
-                    int userId = Integer.parseInt(login);
-                    intent.putExtra("userId", userId);
+                    ((MyApplication) this.getApplication()).setUserId(id);
                     startActivity(intent);
                     finish();
                 }

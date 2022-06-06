@@ -30,7 +30,7 @@ public class SightType extends AppCompatActivity {
     public void sightList(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-        intent.putExtra("type", 3);
+        ((MyApplication) this.getApplication()).setType(3);
         intent.putExtra("userId", userId);
         startActivity(intent);
         finish();
@@ -39,7 +39,7 @@ public class SightType extends AppCompatActivity {
     public void museumList(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-        intent.putExtra("type", 2);
+        ((MyApplication) this.getApplication()).setType(2);
         intent.putExtra("userId", userId);
         startActivity(intent);
         finish();
@@ -48,7 +48,7 @@ public class SightType extends AppCompatActivity {
     public void otherList(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-        intent.putExtra("type", 4);
+        ((MyApplication) this.getApplication()).setType(4);
         intent.putExtra("userId", userId);
         startActivity(intent);
         finish();
@@ -57,7 +57,7 @@ public class SightType extends AppCompatActivity {
     public void cathedralList(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-        intent.putExtra("type", 1);
+        ((MyApplication) this.getApplication()).setType(1);
         intent.putExtra("userId", userId);
         startActivity(intent);
         finish();
@@ -66,7 +66,7 @@ public class SightType extends AppCompatActivity {
     public void favourites(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-        intent.putExtra("type", 0);
+        ((MyApplication) this.getApplication()).setType(0);
         intent.putExtra("userId", userId);
         startActivity(intent);
         finish();

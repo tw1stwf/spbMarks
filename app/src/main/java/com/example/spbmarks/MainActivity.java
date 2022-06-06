@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton buttonRu, buttonEn;
     private static int userId;
 
-    private static final String TAG = "MyActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 "Голову статуи лепила ученица этого скульптора, Мари Анн Колло." +
                 "Змею по замыслу Фальконе вылепил Фёдор Гордеев." +
                 "Отливка статуи осуществлялась под руководством литейных дел мастера Екимова Василия Петровича и была закончена в 1778 году." +
-                "Архитектурно-планировочные решения и общее руководство осуществлял Юрий Фельтен.', 'Этьен Морис Фальконе', 59.9363632, 30.3019047, 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D0%BD%D1%8B%D0%B9_%D0%B2%D1%81%D0%B0%D0%B4%D0%BD%D0%B8%D0%BA', 'sight', '00:00', '24:00', 'Бесплатно', 'Бесплатно')");
+                "Архитектурно-планировочные решения и общее руководство осуществлял Юрий Фельтен.', 'Этьен Морис Фальконе', 59.9363632, 30.3019047, 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D0%BD%D1%8B%D0%B9_%D0%B2%D1%81%D0%B0%D0%B4%D0%BD%D0%B8%D0%BA', 3, '00:00', '24:00', 'Бесплатно', 'Бесплатно')");
 
         db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (5, " + draw_5 + ", 'Спас на крови' , 'Невский проспект.', 'наб. канала Грибоедова, 2Б', false, '1907 г.','Православный мемориальный однопрестольный храм во имя Воскресения Христова; сооружён в память того,\n" +
                 "что на этом месте 1 марта 1881 года в результате покушения был смертельно ранен император Александр II" +

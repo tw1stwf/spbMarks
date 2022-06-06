@@ -34,11 +34,11 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
 
-    private int count;
-    private static int sightType;
+    private int count, sightId, isStared;
+    private int sightType;
     private boolean favoritePageSelected = false;
     private String text;
-    private static int userId;
+    private int userId, sight_id;
 
     private static final String TAG = "MyActivity";
 
@@ -50,8 +50,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         bottomNav = findViewById(R.id.bottomNav);
         recyclerView = findViewById(R.id.recyclerView);
         bottomNav.setOnNavigationItemSelectedListener(this);
-
-        userId = getIntent().getIntExtra("userId", 0);
 
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
@@ -101,7 +99,6 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         });
     }
 
-
     private void filter(String txt) {
         text = txt;
     }
@@ -113,32 +110,71 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         String currentLang = getString(R.string.language);
         String isRusLanguageSelected = "ru";
 
-        sightType = getIntent().getIntExtra("type", 0);
+        sightType = ((MyApplication) this.getApplication()).getType();
+
+        userId = ((MyApplication) this.getApplication()).getUserId();
+
         mSightList = new ArrayList<>();
 
         if(currentLang.equals(isRusLanguageSelected)) {
 
             if(sightType == 0)
             {
-                Cursor query2 = db.rawQuery("SELECT  * FROM sights WHERE sightName LIKE  '%" + text + "%' and stared = 1;", null);
+                Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE sightName LIKE  '%" + text + "%';", null);
+
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    sightId = query2.getInt(0);
+
+                    Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                    while (getStared.moveToNext()) {
+                        isStared = getStared.getInt(0);
+                    }
+
+                    if(isStared != 0)
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
                 }
             }
 
             else {
 
                 if (favoritePageSelected == false) {
-                    Cursor query2 = db.rawQuery("SELECT  * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + ";", null);
+                    Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " ;", null);
+
                     while (query2.moveToNext()) {
-                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        sightId = query2.getInt(0);
+
+                        Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                        while (getStared.moveToNext()) {
+                            isStared = getStared.getInt(0);
+                        }
+
+                        if (isStared == 0) {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), false, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
+
+                        else {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
                     }
                 }
 
                 if (favoritePageSelected == true) {
-                    Cursor query2 = db.rawQuery("SELECT  * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " and stared = 1;", null);
+                    Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " ;", null);
+
                     while (query2.moveToNext()) {
-                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        sightId = query2.getInt(0);
+
+                        Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                        while (getStared.moveToNext()) {
+                            isStared = getStared.getInt(0);
+                        }
+
+                        if (isStared != 0) {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
                     }
                 }
             }
@@ -148,24 +184,60 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
 
             if(sightType == 0)
             {
-                Cursor query2 = db.rawQuery("SELECT  * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and stared = 1;", null);
+                Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE sightName LIKE  '%" + text + "%';", null);
+
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    sightId = query2.getInt(0);
+
+                    Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                    while (getStared.moveToNext()) {
+                        isStared = getStared.getInt(0);
+                    }
+
+                    if(isStared != 0)
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
                 }
             }
 
             else {
                 if (favoritePageSelected == false) {
-                    Cursor query2 = db.rawQuery("SELECT  * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + ";", null);
+                    Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " ;", null);
+
                     while (query2.moveToNext()) {
-                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        sightId = query2.getInt(0);
+
+                        Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                        while (getStared.moveToNext()) {
+                            isStared = getStared.getInt(0);
+                        }
+
+                        if (isStared == 0) {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), false, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
+
+                        else {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
                     }
                 }
 
                 if (favoritePageSelected == true) {
-                    Cursor query2 = db.rawQuery("SELECT  * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " and stared = 1;", null);
+                    Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE sightName LIKE  '%" + text + "%' and type = " + sightType + " ;", null);
+
                     while (query2.moveToNext()) {
-                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        sightId = query2.getInt(0);
+
+                        Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                        while (getStared.moveToNext()) {
+                            isStared = getStared.getInt(0);
+                        }
+
+                        if (isStared != 0) {
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                        }
                     }
                 }
             }
@@ -178,7 +250,9 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         String currentLang = getString(R.string.language);
         String isRusLanguageSelected = "ru";
 
-        sightType = getIntent().getIntExtra("type", 0);
+        userId = ((MyApplication) this.getApplication()).getUserId();
+
+        sightType = ((MyApplication) this.getApplication()).getType();
 
         mSightList = new ArrayList<>();
 
@@ -186,11 +260,20 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         {
             if(sightType == 0)
             {
-                Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE stared = 1;", null);
+                Cursor query2 = db.rawQuery("SELECT * FROM sights;", null);
 
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
-                }
+                    sightId = query2.getInt(0);
+
+                    Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                    while (getStared.moveToNext()) {
+                        isStared = getStared.getInt(0);
+                    }
+
+                    if(isStared != 0)
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
 
                 bottomNav.setVisibility(View.INVISIBLE);
                 ViewGroup.LayoutParams params= recyclerView.getLayoutParams();
@@ -198,13 +281,27 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
                 recyclerView.setLayoutParams(params);
             }
 
-            else
-                {
+            else {
 
                 Cursor query2 = db.rawQuery("SELECT * FROM sights, types WHERE type=type_id and type LIKE " + sightType + ";", null);
 
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    sightId = query2.getInt(0);
+
+                    Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                    while (getStared.moveToNext()) {
+                        isStared = getStared.getInt(0);
+                    }
+
+                    if(isStared == 0) {
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), false, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
+
+                    else {
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
+
                 }
 
                 bottomNav.setVisibility(View.VISIBLE);
@@ -215,10 +312,21 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         {
             if(sightType == 0)
             {
-                Cursor query2 = db.rawQuery("SELECT * FROM sights_en WHERE stared = 1;", null);
+                if(sightType == 0) {
+                    Cursor query2 = db.rawQuery("SELECT * FROM sights_en;", null);
 
-                while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    while (query2.moveToNext()) {
+                        sightId = query2.getInt(0);
+
+                        Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                        while (getStared.moveToNext()) {
+                            isStared = getStared.getInt(0);
+                        }
+
+                        if (isStared != 0)
+                            mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
                 }
 
                 bottomNav.setVisibility(View.INVISIBLE);
@@ -232,7 +340,21 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
                 Cursor query2 = db.rawQuery("SELECT * FROM sights_en, types WHERE type=type_id and type LIKE " + sightType + ";", null);
 
                 while (query2.moveToNext()) {
-                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    sightId = query2.getInt(0);
+
+                    Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                    while (getStared.moveToNext()) {
+                        isStared = getStared.getInt(0);
+                    }
+
+                    if (isStared == 0) {
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), false, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
+
+                    else {
+                        mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                    }
                 }
 
                 bottomNav.setVisibility(View.VISIBLE);
@@ -247,25 +369,45 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         String currentLang = getString(R.string.language);
         String isRusLanguageSelected = "ru";
 
-        sightType = getIntent().getIntExtra("type", 0);
+        sightType = ((MyApplication) this.getApplication()).getType();
+
+        userId = ((MyApplication) this.getApplication()).getUserId();
 
         mSightList = new ArrayList<>();
 
         if(currentLang.equals(isRusLanguageSelected))
         {
-            Cursor query2 = db.rawQuery("SELECT * FROM sights WHERE type LIKE '" + sightType + "' and stared = 1;", null);
+            Cursor query2 = db.rawQuery("SELECT * FROM sights, types WHERE type=type_id and type LIKE " + sightType + ";", null);
 
             while (query2.moveToNext()) {
-                mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
-            }
+                sightId = query2.getInt(0);
+
+                Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                while (getStared.moveToNext()) {
+                    isStared = getStared.getInt(0);
+                }
+
+                if (isStared != 0)
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                }
         }
 
         else
         {
-            Cursor query2 = db.rawQuery("SELECT * FROM sights_en  WHERE type LIKE '" + sightType + "' and stared = 1;", null);
+            Cursor query2 = db.rawQuery("SELECT * FROM sights_en, types WHERE type=type_id and type LIKE " + sightType + ";", null);
 
             while (query2.moveToNext()) {
-                mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), query2.getInt(5) > 0, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
+                sightId = query2.getInt(0);
+
+                Cursor getStared = db.rawQuery("SELECT count(*) as count FROM favourites WHERE user_id = " + userId + " and sight_id = " + sightId + ";", null);
+
+                while (getStared.moveToNext()) {
+                    isStared = getStared.getInt(0);
+                }
+
+                if (isStared != 0)
+                    mSightList.add(new Sight(query2.getInt(0), query2.getInt(1), query2.getString(2), query2.getString(3), query2.getString(4), true, query2.getString(6), query2.getString(7), query2.getString(8), query2.getDouble(9), query2.getDouble(10), query2.getString(11), query2.getInt(12), query2.getString(13), query2.getString(14), query2.getString(15), query2.getString(16)));
             }
         }
     }
@@ -298,6 +440,8 @@ public class SightListActivity extends AppCompatActivity implements SightAdapter
         intent.putExtra("closeTime", mSightList.get(position).getCloseTime());
         intent.putExtra("price", mSightList.get(position).getPrice());
         intent.putExtra("priceKids", mSightList.get(position).getPriceKids());
+
+        intent.putExtra("userId", userId);
 
         if(sightType == 0)
         {

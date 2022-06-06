@@ -59,8 +59,7 @@
             android:onClick="isStared"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/star"
-            app:tint="#979797"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck" />
+            app:tint="#979797" />
 
     </androidx.cardview.widget.CardView>
 
