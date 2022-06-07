@@ -66,4 +66,10 @@
     <string name="address"><b>Адрес: </b></string>
 
     <string name="guest">Войти как гость</string>
+
+    <string name="park">Парки</string>
+
+    <string name="architecture">Архитектура</string>
+
+    <string name="entertainment">Развлечения</string>
 </resources>

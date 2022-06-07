@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS sights (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type INTEGER, openTime INTEGER, closeTime INTEGER, price INTEGER, priceForKids INTEGER, UNIQUE(id), FOREIGN KEY (type) REFERENCES types(type_id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS sights_en (id INTEGER, image BLOB, sightName TEXT, metro TEXT, location TEXT, stared BOOLEAN, dateOfBuild TEXT, discription TEXT, architect TEXT, latitude REAL, longitude REAL, website TEXT, type INTEGER, openTime INTEGER, closeTime INTEGER, price INTEGER, priceForKids INTEGER, UNIQUE(id), FOREIGN KEY (type) REFERENCES types(type_id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS types (type_id INTEGER NOT NULL, type_name TEXT NOT NULL, UNIQUE(type_id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS favourites(id INTEGER PRIMARY KEY AUTOINCREMENT, sight_id INTEGER NOT NULL, user_id INTEGER NOT NULL, UNIQUE(id), FOREIGN KEY (user_id) REFERENCES users(id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS favourites(id INTEGER PRIMARY KEY AUTOINCREMENT, sight_id INTEGER NOT NULL, user_id INTEGER NOT NULL, UNIQUE(id), FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (sight_id) REFERENCES sights(id))");
 
         buttonRu =  findViewById(R.id.imageButtonRu);
         buttonEn =  findViewById(R.id.imageButtonEn);
@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         int draw_8 = R.drawable.petrop;
         int draw_9 = R.drawable.kunts;
         int draw_10 = R.drawable.marink;
+        int draw_11 = R.drawable.park300;
+        int draw_12 = R.drawable.primpark;
+        int draw_13 = R.drawable.parkpob;
+        int draw_14 = R.drawable.zinger;
+        int draw_15 = R.drawable.dom_ioffa;
+        int draw_16 = R.drawable.divo;
 
         //sights
 
@@ -162,6 +168,29 @@ public class MainActivity extends AppCompatActivity {
                 "Театральный комплекс включает в себя собственно основное здание на Театральной площади, концертный зал (с 2006 года и новый южный корпус с 2021 года)," +
                 "вторую сцену на Крюковом канале (с 2013 года) и филиалы во Владивостоке (с 2016 года) и Владикавказе (с 2017).', 'Альберт Катеринович Кавос', 59.9258033,  30.2970917, 'https://www.mariinsky.ru/', 4, '10:00', '18:00', 'от 500 руб', 'от 500 руб')");
 
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (11, " + draw_11 + ", 'Парк 300-летия СПб' , 'Беговая.', 'Приморский пр., 74', false, '1995 г.', 'Парк 300-летия Санкт-Петербурга — расположен в северо-западной части Санкт-Петербурга на границе " +
+                "Приневской низменности в северной части Невской губы. С севера парк ограничен Приморским проспектом и Приморским шоссе, а с востока — Яхтенной улицей. Общая площадь — 54 га.', 'Отсутствует', 59.9812775,  30.2008025, 'http://park300spb.ru/', 6, '07:00', '23:00', 'Бесплатно', 'Бесплатно')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (12, " + draw_12 + ", 'Приморский парк Победы' , 'Крестовский остров.', 'Крестовский пр., 23А', false, '1945 г.', 'Приморский Парк Победы был заложен 7 октября 1945 года в ознаменование победы в Великой Отечественной войне. " +
+                "На месте сегодняшнего Приморского Парка Победы в допетровские времена располагались хуторские острова, отделенные друг от друга болотами и мелколесьем. Первые парковые работы начались в начале ХVIII века, " +
+                "когда Петербург бурно строился и рос с каждым днем, а Крестовский остров принадлежал губернатору Александру Меншикову.', 'Отсутствует', 59.9719592,  30.243595, 'http://pppark.ru/', 6, '00:00', '24:00', 'Бесплатно', 'Бесплатно')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (13, " + draw_13 + ", 'Московский парк Победы' , 'Парк Победы.', 'Кузнецовская ул., 25', false, '1939 г.', 'Парк в Московском районе Санкт-Петербурга. Впервые заложен в 1939—1941 годах в соответствии с Генеральным планом развития Ленинграда как Парк культуры и отдыха. " +
+                "Повторно заложен в 1945 году в честь Победы в Великой Отечественной войне как парк Победы.', 'Татьяна Борисовна Дубяго', 59.86896, 30.3248849, 'https://www.gupmpp.ru/', 6, '00:00', '24:00', 'Бесплатно', 'Бесплатно')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (14, " + draw_14 + ", 'Дом Зингера' , 'Невский проспект.', 'Невский пр., 28', false, '1904 г.', 'Шестиэтажное здание с мансардой в стиле модерн, площадью около 7000 м² было построено в 1902—1904 годах по проекту архитектора Павла Сюзора для «Акционерной компании Зингер в России». " +
+                "Для строительства выбрали место с максимальной торгово-деловой активностью на пересечении Невского проспекта и Екатерининского канала. " +
+                "Маститый архитектор с 30-летней карьерой за плечами взялся за проект для щедрого заказчика и решился на работу в стиле модерн. " +
+                "До 1917 года здание принадлежало компании «Зингер»; в 1904—1911 годах значительная часть помещений арендовалась Санкт-Петербургским частным коммерческим банком. В годы Первой мировой войны на первом этаже здания находилось посольство США. С декабря 1919 года в здании располагался «Петрогосиздат» (с 1938 года — «Лениздат»), а в 1920-е — 1930-е годы — и другие издательства. " +
+                "Также в здании велась книжная торговля, а с 1938 года в нём располагается «Дом книги».', 'Павел Юльевич Сюзор', 59.9354113, 30.3263798, 'https://dk-spb.ru/', 5, '09:00', '23:00', 'Бесплатно', 'Бесплатно')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (15, " + draw_15 + ", 'Доходный дом Ш.З. Иоффа' , 'Владимирская.', 'Загородный просп., 11', false, '1913 г.', 'Знаменитый ʺДом с башней на Пяти углахʺ находится в Санкт-Петербурге, на улице Рубинштейна, и является выдающимся архитектурным сооружением в стиле неоклассицизма. " +
+                "Здание доходного дома было построено в 1913 году по проекту архитектора Александра Лишневского. Сначала трёхэтажный дом принадлежал купцам Лапиным, а позднее его приобрел богатый комиссионер Ш.З. Иофф. " +
+                "Он имел аукционный зал на Загородном пр., 6, где торговал антиквариатом и мебелью.', 'Александр Львович Лишневский', 59.9262286, 30.3422761, 'https://wikipoints.ru/point/1147', 5, '00:00', '24:00', 'Бесплатно', 'Бесплатно')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (16, " + draw_16 + ", 'Диво-остров' , 'Крестовский остров.', 'Кемская ул., 1А', false, '2003 г.', 'Парк аттракционов «Диво Остров» был открыт в мае 2003 года и насчитывал 17 аттракционов. За первый месяц после открытия парк посетило 1 млн человек. " +
+                "За время работы парк неоднократно получал различные награды: в 2004 году — «Хрустальное колесо» как лучший парк аттракционов в России, в 2006 году стал победителем национальной премии «Компания года» в номинации «Лидер отрасли». По данным на весну 2022 года парк насчитывает 42 аттракциона.', 'Отсутствует', 59.9726055, 30.2546344, 'https://www.divo-ostrov.ru/', 7, '12:00', '20:00', 'Бесплатно', 'Бесплатно')");
+
         //sights-en
 
         db.execSQL("INSERT OR IGNORE INTO sights_en (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (1, " + draw_1 + ", 'Kazan Cathedral' , 'Nevsky Prospect.', 'Kazanskaya sq., 2', false, '1811 y.','One of the largest churches in St. Petersburg." +
@@ -248,11 +277,36 @@ public class MainActivity extends AppCompatActivity {
                 "The theater complex includes the main building itself on Theater Square, a concert hall (since 2006 and a new southern building since 2021)," +
                 "the second stage on the Kryukov Canal (since 2013) and branches in Vladivostok (since 2016) and Vladikavkaz (since 2017).', 'Albert Katerinovich Kavos', 59.9258033,  30.2970917, 'https://www.mariinsky.ru/', 4, '10:00', '18:00', 'from 500 rub', 'from 500 rub')");
 
+        db.execSQL("INSERT OR IGNORE INTO sights_en (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (11, " + draw_11 + ", 'Park 300th years of SPb' , 'Begovaya.', 'Primorsky pr., 74', false, '1995 г.', 'Park of the 300th Anniversary of St. Petersburg - located in the northwestern part of St. Petersburg on the border" +
+                "Neva lowland in the northern part of the Neva Bay. From the north, the park is bounded by Primorsky Prospekt and Primorskoye Highway, and from the east by Yakhtennaya Street. The total area is 54 hectares.', 'Missing', 59.9812775,  30.2008025, 'http://park300spb.ru/', 6, '07:00', '23:00', 'Free', 'Free')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights_en (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (12, " + draw_12 + ", 'Seaside Park Victory' , 'Krestovsky island.', 'Krestovsky pr., 23A', false, '1945 г.', 'Seaside Victory Park was founded on October 7, 1945 to commemorate the victory in the Great Patriotic War. On the site of today s Primorsky Victory Park in pre-Petrine times, there were farm islands, " +
+                "separated from each other by swamps and low forests. The first park work began at the beginning of the 18th century, when St. Petersburg was rapidly built and grew every day, and Krestovsky Island belonged to the governor Alexander Menshikov.', 'Missing', 59.9719592,  30.243595, 'http://pppark.ru/', 6, '00:00', '24:00', 'Free', 'Free')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights_en (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (13, " + draw_13 + ", 'Moscow Victory Park' , 'Park Pobedi.', 'Kuznetsovskaya st., 25', false, '1939 г.', 'Park in the Moskovsky district of St. Petersburg. It was first founded in 1939-1941 in accordance with the General Plan for the Development of Leningrad as a Park of Culture and Leisure.\n" +
+                "It was laid down again in 1945 in honor of the Victory in the Great Patriotic War as Victory Park.', 'Tatyana Borisovna Dubyago', 59.86896, 30.3248849, 'https://www.gupmpp.ru/', 6, '00:00', '24:00', 'Free', 'Free')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights_en  (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (14, " + draw_14 + ", 'Zinger House' , 'Nevsky Prospect.', 'Nevsky prospect., 28', false, '1904 г.', 'The six-storey building with an attic in Art Nouveau style, with an area of \u200B\u200Babout 7,000 m², was built in 1902-1904 according to the design of the architect Pavel Syuzor for the Singer Joint-Stock Company in Russia.\n" +
+                "For the construction, they chose a place with maximum trade and business activity at the intersection of Nevsky Prospekt and the Ekaterininsky Canal.\n" +
+                "A venerable architect with a 30-year career behind him took on a project for a generous client and decided to work in the Art Nouveau style.\n" +
+                "Until 1917, the building belonged to the Singer company; in 1904-1911, a significant part of the premises was rented by the St. Petersburg private commercial bank. During the First World War, the US embassy was located on the first floor of the building. Since December 1919, the building housed Petrogosizdat (since 1938 - Lenizdat), and in the 1920s - 1930s - other publishing houses.\n" +
+                "Also, the book trade was carried out in the building, and since 1938 it has housed the Book House.', 'Pavel Yulievich Syuzor', 59.9354113, 30.3263798, 'https://dk-spb.ru/', 5, '09:00', '23:00', 'Free', 'Free')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights_en  (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (15, " + draw_15 + ", 'Profitable house Sh.Z. Ioffa' , 'Vladimirskaya.', 'Zagorodny Ave., 11', false, '1913 г.', 'The famous \"House with a Tower at the Five Corners\" is located in St. Petersburg, on Rubinshteina Street, and is an outstanding architectural structure in the neoclassical style.\n" +
+                "The building of the apartment building was built in 1913 according to the project of the architect Alexander Lishnevsky. At first, the three-story house belonged to the merchants Lapins, and later it was acquired by a wealthy commission agent Sh.Z. Ioff.\n" +
+                "He had an auction room at 6, Zagorodny Pr., where he sold antiques and furniture.', 'Alexander Lvovich Lishnevsky', 59.9262286, 30.3422761, 'https://wikipoints.ru/point/1147', 5, '00:00', '24:00', 'Free', 'Free')");
+
+        db.execSQL("INSERT OR IGNORE INTO sights_en  (id, image, sightName, metro, location, stared, dateOfBuild, discription, architect, latitude, longitude, website, type,  openTime, closeTime, price, priceForKids) VALUES (16, " + draw_16 + ", 'Divo Ostrov' , 'Krestovsky island.', 'Kemskaya st., 1A', false, '2003 г.', 'Amusement park \"Divo Ostrov\" was opened in May 2003 and consisted of 17 attractions. In the first month after the opening, the park was visited by 1 million people.\n" +
+                "During its operation, the park has repeatedly received various awards: in 2004 - \"Crystal Wheel\" as the best amusement park in Russia, in 2006 became the winner of the national award \"Company of the Year\" in the nomination \"Industry Leader\". As of spring 2022, the park has 42 rides.', 'Missing', 59.9726055, 30.2546344, 'https://www.divo-ostrov.ru/', 7, '12:00', '20:00', 'Free', 'Free')");
 
         db.execSQL("INSERT OR IGNORE INTO types VALUES (1, 'cathedral')");
         db.execSQL("INSERT OR IGNORE INTO types VALUES (2, 'museum')");
         db.execSQL("INSERT OR IGNORE INTO types VALUES (3, 'sight')");
         db.execSQL("INSERT OR IGNORE INTO types VALUES (4, 'other')");
+        db.execSQL("INSERT OR IGNORE INTO types VALUES (5, 'architecture')");
+        db.execSQL("INSERT OR IGNORE INTO types VALUES (6, 'parks')");
+        db.execSQL("INSERT OR IGNORE INTO types VALUES (7, 'entertainment')");
+
     }
 
     private void setAppLocale(String localeCode)

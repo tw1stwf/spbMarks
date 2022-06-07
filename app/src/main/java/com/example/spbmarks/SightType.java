@@ -62,4 +62,28 @@ public class SightType extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void architectureList(View view)
+    {
+        Intent intent = new Intent(this, SightListActivity.class);
+        ((MyApplication) this.getApplication()).setType(5);
+        startActivity(intent);
+        finish();
+    }
+
+    public void parkList(View view)
+    {
+        Intent intent = new Intent(this, SightListActivity.class);
+        ((MyApplication) this.getApplication()).setType(6);
+        startActivity(intent);
+        finish();
+    }
+
+    public void entertainmentList(View view)
+    {
+        Intent intent = new Intent(this, SightListActivity.class);
+        ((MyApplication) this.getApplication()).setType(7);
+        startActivity(intent);
+        finish();
+    }
 }

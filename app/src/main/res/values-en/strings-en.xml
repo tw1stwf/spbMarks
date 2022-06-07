@@ -66,4 +66,10 @@
     <string name="address"><b>Address: </b></string>
 
     <string name="guest">Login as guest</string>
+
+    <string name="park">Parks</string>
+
+    <string name="architecture">Architecture</string>
+
+    <string name="entertainment">Entertainment</string>
 </resources>
