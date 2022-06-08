@@ -17,8 +17,9 @@
             android:id="@+id/imageViewMetro"
             android:layout_width="17dp"
             android:layout_height="17dp"
+            android:layout_below="@+id/textViewSightName"
             android:layout_marginLeft="164dp"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="8dp"
             app:srcCompat="@drawable/metro" />
 
         <ImageView
@@ -66,8 +67,9 @@
             android:id="@+id/textViewLocation"
             android:layout_width="211dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewMetro"
             android:layout_marginLeft="165dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="1dp"
             android:text="TextView"
             android:textColor="#FF979797" />
 
