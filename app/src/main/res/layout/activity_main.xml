@@ -9,6 +9,22 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="83dp">
 
+    <Button
+        android:id="@+id/buttonOnMap"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="416dp"
+        android:onClick="onMap"
+        android:text="@string/onMap"
+        android:textColor="#d4dbe4"
+        app:iconTint="#d4dbe4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#d4dbe4" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="294dp"
@@ -60,22 +76,6 @@
         android:textColor="#D4DBE4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#d4dbe4" />
-
-    <Button
-        android:id="@+id/buttonOnMap"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="416dp"
-        android:onClick="onMap"
-        android:text="@string/onMap"
-        android:textColor="#d4dbe4"
-        app:iconTint="#d4dbe4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#d4dbe4" />

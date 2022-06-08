@@ -48,8 +48,6 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     private static int type;
     private int userId;
 
-    private static final String TAG = "MyActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,10 +206,8 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
     public void back(View view)
     {
         Intent intent = new Intent(this, SightListActivity.class);
-
         type = ((MyApplication) this.getApplication()).getType();
         intent.putExtra("type", type);
-        Log.i(TAG, "" + type);
         startActivity(intent);
         finish();
     }
