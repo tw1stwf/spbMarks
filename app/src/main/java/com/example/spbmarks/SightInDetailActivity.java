@@ -151,56 +151,57 @@ public class SightInDetailActivity extends AppCompatActivity implements OnMapRea
 
         int userId = ((MyApplication) this.getApplication()).getUserId();
 
-        if(isFav)
-        {
-            SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        if(userId > 0) {
+            if (isFav) {
+                SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
 
-            db.execSQL("INSERT INTO favourites(sight_id, user_id) VALUES (" + id + ", " + userId + ")");
+                db.execSQL("INSERT INTO favourites(sight_id, user_id) VALUES (" + id + ", " + userId + ")");
 
-            star.setColorFilter(Color.argb(255, 205, 201, 112));
-            Toast toast;
+                star.setColorFilter(Color.argb(255, 205, 201, 112));
+                Toast toast;
 
-            if(currentLang.equals(isRusLanguageSelected))
-            {
-                toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
+                if (currentLang.equals(isRusLanguageSelected)) {
+                    toast = Toast.makeText(getApplicationContext(), "Добавлено в избранное", Toast.LENGTH_SHORT);
+                } else {
+                    toast = Toast.makeText(getApplicationContext(), "Added to favourites", Toast.LENGTH_SHORT);
+                }
+
+                toast.show();
+                db.close();
+
+                isFav = false;
+            } else {
+                SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+
+                db.execSQL("DELETE FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";");
+
+                star.setColorFilter(Color.argb(255, 151, 151, 151));
+                Toast toast;
+
+                if (currentLang.equals(isRusLanguageSelected)) {
+                    toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
+                } else {
+                    toast = Toast.makeText(getApplicationContext(), "Delete from favourites", Toast.LENGTH_SHORT);
+                }
+
+                toast.show();
+                db.close();
+
+                isFav = true;
             }
 
-            else
-            {
-                toast = Toast.makeText(getApplicationContext(), "Added to favourites", Toast.LENGTH_SHORT);
-            }
-
-            toast.show();
-            db.close();
-
-            isFav = false;
         }
 
         else
         {
-            SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-
-            db.execSQL("DELETE FROM favourites WHERE sight_id = " + id + " and user_id = " + userId + ";");
-
-            star.setColorFilter(Color.argb(255, 151, 151, 151));
             Toast toast;
-
-            if(currentLang.equals(isRusLanguageSelected))
-            {
-                toast = Toast.makeText(getApplicationContext(), "Удалено из избранного", Toast.LENGTH_SHORT);
+            if (currentLang.equals(isRusLanguageSelected)) {
+                toast = Toast.makeText(getApplicationContext(), "Недоступно в режиме гостя", Toast.LENGTH_SHORT);
+            } else {
+                toast = Toast.makeText(getApplicationContext(), "Not available in guest mode", Toast.LENGTH_SHORT);
             }
-
-            else
-            {
-                toast = Toast.makeText(getApplicationContext(), "Delete from favourites", Toast.LENGTH_SHORT);
-            }
-
             toast.show();
-            db.close();
-
-            isFav = true;
         }
-
     }
 
     public void back(View view)
